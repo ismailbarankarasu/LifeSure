@@ -29,3 +29,22 @@ body {
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
 }
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 110px;
+}
+
+.navbar .navbar-nav .nav-link {
+    white-space: nowrap;
+}
+
+    .navbar .navbar-nav .nav-link.active {
+        color: var(--bs-primary);
+        font-weight: 700;
+    }
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+}

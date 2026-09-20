@@ -36,7 +36,9 @@
     <!-- Modal Search End -->
 
     @RenderBody()
-
+    @await Component.InvokeAsync("_LayoutFooterComponentPartial")
+    @await Component.InvokeAsync("_LayoutScriptComponentPartial")
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 
 </html>
