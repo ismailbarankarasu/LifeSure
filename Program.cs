@@ -14,6 +14,8 @@ var connectionString =
 builder.Services.AddDbContext<LifeSureDbContext>(options =>
     options.UseSqlServer(connectionString));
 
+
+builder.Services.AddCqrsHandlers();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
