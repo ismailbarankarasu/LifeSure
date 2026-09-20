@@ -17,6 +17,7 @@ builder.Services.AddDbContext<LifeSureDbContext>(options =>
 
 
 builder.Services.AddCqrsHandlers();
+builder.Services.AddMediatorHandlers();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
