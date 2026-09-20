@@ -72,3 +72,52 @@
 
     updateActiveLink();
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+    const videoModal = document.getElementById("videoModal");
+    const videoFrame = document.getElementById("videoFrame");
+    const videoError = document.getElementById("videoError");
+
+    if (videoModal && videoFrame && videoError) {
+        videoModal.addEventListener("show.bs.modal", event => {
+            const trigger = event.relatedTarget;
+            const videoId = trigger?.getAttribute("data-video-id") ?? "";
+
+            const isValid = /^[a-zA-Z0-9_-]{11}$/.test(videoId);
+
+            videoError.classList.toggle("d-none", isValid);
+            videoFrame.parentElement.classList.toggle("d-none", !isValid);
+
+            videoFrame.removeAttribute("src");
+
+            if (isValid) {
+                videoFrame.src =
+                    `https://www.youtube-nocookie.com/embed/${videoId}?rel=0`;
+            }
+        });
+
+        videoModal.addEventListener("hide.bs.modal", () => {
+            // Modal kapanırken video ve ses durur.
+            videoFrame.removeAttribute("src");
+        });
+    }
+
+    const serviceModal = document.getElementById("serviceModal");
+    const serviceTitle = document.getElementById("serviceModalLabel");
+    const serviceDescription =
+        document.getElementById("serviceModalDescription");
+
+    if (serviceModal && serviceTitle && serviceDescription) {
+        serviceModal.addEventListener("show.bs.modal", event => {
+            const trigger = event.relatedTarget;
+
+            serviceTitle.textContent =
+                trigger?.getAttribute("data-service-title")
+                || "Hizmet Detayı";
+
+            serviceDescription.textContent =
+                trigger?.getAttribute("data-service-description")
+                || "Bu hizmetin açıklaması henüz hazırlanmadı.";
+        });
+    }
+});

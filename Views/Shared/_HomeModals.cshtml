@@ -1,0 +1,78 @@
+﻿<!-- Video Modal -->
+<div class="modal fade"
+     id="videoModal"
+     tabindex="-1"
+     aria-labelledby="videoModalLabel"
+     aria-hidden="true">
+
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="videoModalLabel">
+                    LifeSure Tanıtım Videosu
+                </h5>
+
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Kapat">
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <p id="videoError"
+                   class="text-danger d-none"
+                   role="alert">
+                    Video bağlantısı henüz hazırlanmadı.
+                </p>
+
+                <div class="ratio ratio-16x9">
+                    <iframe id="videoFrame"
+                            title="LifeSure tanıtım videosu"
+                            allow="autoplay; encrypted-media; picture-in-picture"
+                            allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Hizmet Detay Modal -->
+<div class="modal fade"
+     id="serviceModal"
+     tabindex="-1"
+     aria-labelledby="serviceModalLabel"
+     aria-hidden="true">
+
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="serviceModalLabel">
+                    Hizmet Detayı
+                </h5>
+
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Kapat">
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <p id="serviceModalDescription"
+                   class="mb-0"
+                   style="white-space: pre-line;">
+                </p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button"
+                        class="btn btn-secondary rounded-pill px-4"
+                        data-bs-dismiss="modal">
+                    Kapat
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
