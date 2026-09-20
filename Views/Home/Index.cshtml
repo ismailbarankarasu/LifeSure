@@ -1,8 +1,13 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+@await Component.InvokeAsync("_SliderComponentPartial")
+@await Component.InvokeAsync("_FeatureComponentPartial")
+@await Component.InvokeAsync("_AboutComponentPartial")
+@await Component.InvokeAsync("_ServiceComponentPartial")
+@await Component.InvokeAsync("_FaqComponentPartial")
+@await Component.InvokeAsync("_TeamComponentPartial")
+@await Component.InvokeAsync("_TestimonialComponentPartial")
+@await Component.InvokeAsync("_LayoutFooterComponentPartial")
+@await Component.InvokeAsync("_LayoutScriptComponentPartial")

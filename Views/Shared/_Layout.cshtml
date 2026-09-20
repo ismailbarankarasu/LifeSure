@@ -34,15 +34,9 @@
         </div>
     </div>
     <!-- Modal Search End -->
-    @await Component.InvokeAsync("_SliderComponentPartial")
-    @await Component.InvokeAsync("_FeatureComponentPartial")
-    @await Component.InvokeAsync("_AboutComponentPartial")
-    @await Component.InvokeAsync("_ServiceComponentPartial")
-    @await Component.InvokeAsync("_FaqComponentPartial")
-    @await Component.InvokeAsync("_TeamComponentPartial")
-    @await Component.InvokeAsync("_TestimonialComponentPartial")
-    @await Component.InvokeAsync("_LayoutFooterComponentPartial")
-    @await Component.InvokeAsync("_LayoutScriptComponentPartial")
+
+    @RenderBody()
+
 </body>
 
 </html>
