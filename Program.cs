@@ -1,4 +1,5 @@
 using LifeSure.Data;
+using LifeSure.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
