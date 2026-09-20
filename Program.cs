@@ -1,7 +1,18 @@
+using LifeSure.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+var connectionString =
+    builder.Configuration.GetConnectionString("DefaultConnection")
+    ?? throw new InvalidOperationException(
+        "DefaultConnection bağlantı bilgisi bulunamadı.");
+
+builder.Services.AddDbContext<LifeSureDbContext>(options =>
+    options.UseSqlServer(connectionString));
 
 var app = builder.Build();
 
