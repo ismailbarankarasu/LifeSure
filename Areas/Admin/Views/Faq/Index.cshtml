@@ -1,0 +1,83 @@
+﻿@model List<LifeSure.CQRS.Faqs.Results.FaqResult>
+
+@{
+    ViewData["Title"] = "Sık Sorulan Sorular";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="h4 mb-0">Sık Sorulan Sorular</h2>
+
+    <a asp-action="Create" class="btn btn-primary">
+        <i class="fas fa-plus me-2"></i>
+        Yeni Soru
+    </a>
+</div>
+
+<div class="admin-card p-4">
+    @if (Model.Count == 0)
+    {
+        <div class="alert alert-info mb-0">
+            Henüz soru eklenmedi.
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table align-middle">
+                <thead>
+                    <tr>
+                        <th>Soru</th>
+                        <th>İngilizce içerik</th>
+                        <th>Sıra</th>
+                        <th>Durum</th>
+                        <th class="text-end">İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        var question = item.Translations
+                            .FirstOrDefault(x => x.LanguageCode == "tr")
+                            ?.Question;
+
+                        var hasEnglish = item.Translations
+                            .Any(x => x.LanguageCode == "en");
+
+                        <tr>
+                            <td style="min-width: 220px; max-width: 450px; overflow-wrap: anywhere;">
+                                @question
+                            </td>
+                            <td>
+                                @(hasEnglish ? "Mevcut" : "Eklenmedi")
+                            </td>
+                            <td>@item.DisplayOrder</td>
+                            <td>
+                                <span class="badge @(item.IsActive ? "bg-success" : "bg-secondary")">
+                                    @(item.IsActive ? "Aktif" : "Pasif")
+                                </span>
+                            </td>
+                            <td class="text-end text-nowrap">
+                                <a asp-action="Edit"
+                                   asp-route-id="@item.Id"
+                                   class="btn btn-sm btn-outline-primary">
+                                    Düzenle
+                                </a>
+
+                                <form asp-action="Delete"
+                                      asp-route-id="@item.Id"
+                                      method="post"
+                                      class="d-inline"
+                                      onsubmit="return confirm('Bu soruyu silmek istediğinize emin misiniz?');">
+                                    <button type="submit"
+                                            class="btn btn-sm btn-outline-danger">
+                                        Sil
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>

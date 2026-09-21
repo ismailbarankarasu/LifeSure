@@ -1,12 +1,18 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using LifeSure.Mediator.TeamMembers.Queries;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
 
-namespace LifeSure.ViewComponents
+namespace LifeSure.ViewComponents;
+
+public class _TeamComponentPartial(ISender sender)
+    : ViewComponent
 {
-    public class _TeamComponentPartial:ViewComponent
+    public async Task<IViewComponentResult> InvokeAsync()
     {
-        public IViewComponentResult Invoke()
-        {
-            return View();
-        }
+        var members = await sender.Send(
+            new GetTeamMembersQuery(OnlyActive: true),
+            HttpContext.RequestAborted);
+
+        return View(members);
     }
 }

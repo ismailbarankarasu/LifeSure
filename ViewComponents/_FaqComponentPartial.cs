@@ -1,12 +1,20 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using LifeSure.CQRS.Abstractions;
+using LifeSure.CQRS.Faqs.Queries;
+using LifeSure.CQRS.Faqs.Results;
+using Microsoft.AspNetCore.Mvc;
 
-namespace LifeSure.ViewComponents
+namespace LifeSure.ViewComponents;
+
+public class _FaqComponentPartial(
+    IQueryHandler<GetFaqsQuery, List<FaqResult>> handler)
+    : ViewComponent
 {
-    public class _FaqComponentPartial:ViewComponent
+    public async Task<IViewComponentResult> InvokeAsync()
     {
-        public IViewComponentResult Invoke()
-        {
-            return View();
-        }
+        var faqs = await handler.HandleAsync(
+            new GetFaqsQuery(OnlyActive: true),
+            HttpContext.RequestAborted);
+
+        return View(faqs);
     }
 }

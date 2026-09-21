@@ -1,57 +1,107 @@
-﻿<!-- FAQs Start -->
-<div class="container-fluid faq-section bg-light py-5" id="sss">
-    <div class="container py-5">
-        <div class="row g-5 align-items-center">
-            <div class="col-xl-6 wow fadeInLeft" data-wow-delay="0.2s">
-                <div class="h-100">
-                    <div class="mb-5">
-                        <h4 class="text-primary">Some Important FAQ's</h4>
-                        <h1 class="display-4 mb-0">Common Frequently Asked Questions</h1>
+﻿@using System.Globalization
+@model List<LifeSure.CQRS.Faqs.Results.FaqResult>
+
+@{
+    var isEnglish = CultureInfo.CurrentUICulture
+        .TwoLetterISOLanguageName == "en";
+
+    var language = isEnglish ? "en" : "tr";
+    var firstItem = true;
+}
+
+<section id="sss">
+    @if (Model.Count > 0)
+    {
+        <div class="container-fluid bg-light py-5">
+            <div class="container py-5">
+                <div class="row g-5">
+                    <div class="col-lg-4">
+                        <div class="lifesure-faq-intro">
+                            <span class="badge bg-primary rounded-pill px-3 py-2 mb-3">
+                                @(isEnglish ? "FAQs" : "Merak Ettikleriniz")
+                            </span>
+
+                            <h2 class="display-5 mb-4">
+                                @(isEnglish
+                                    ? "Frequently Asked Questions"
+                                    : "Sık Sorulan Sorular")
+                            </h2>
+
+                            <p class="text-muted mb-4">
+                                @(isEnglish
+                                    ? "Find answers to common questions about our services."
+                                    : "Hizmetlerimizle ilgili sık sorulan soruların yanıtlarını burada bulabilirsiniz.")
+                            </p>
+
+                            <div class="bg-white rounded p-4 border">
+                                <h3 class="h5">
+                                    @(isEnglish
+                                        ? "Have another question?"
+                                        : "Başka bir sorunuz mu var?")
+                                </h3>
+
+                                <p class="text-muted mb-3">
+                                    @(isEnglish
+                                        ? "Contact us for more information."
+                                        : "Daha fazla bilgi almak için bizimle iletişime geçebilirsiniz.")
+                                </p>
+
+                                <a href="#iletisim"
+                                   class="btn btn-primary rounded-pill px-4">
+                                    @(isEnglish ? "Contact Us" : "Bize Ulaşın")
+                                </a>
+                            </div>
+                        </div>
                     </div>
-                    <div class="accordion" id="accordionExample">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="headingOne">
-                                <button class="accordion-button border-0" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                    Q: What happens during Freshers' Week?
-                                </button>
-                            </h2>
-                            <div id="collapseOne" class="accordion-collapse collapse show active" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                <div class="accordion-body rounded">
-                                    A: Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.
+
+                    <div class="col-lg-8">
+                        <div class="accordion lifesure-faq-accordion"
+                             id="lifeSureFaqAccordion">
+
+                            @foreach (var faq in Model)
+                            {
+                                var translation = faq.Translations
+                                    .FirstOrDefault(x => x.LanguageCode == language)
+                                    ?? faq.Translations
+                                        .FirstOrDefault(x => x.LanguageCode == "tr");
+
+                                if (translation is null)
+                                {
+                                    continue;
+                                }
+
+                                var headingId = $"faq-heading-{faq.Id}";
+                                var collapseId = $"faq-collapse-{faq.Id}";
+                                var isOpen = firstItem;
+                                firstItem = false;
+
+                                <div class="accordion-item">
+                                    <h3 class="accordion-header"
+                                        id="@headingId">
+                                        <button class="accordion-button @(isOpen ? "" : "collapsed")"
+                                                type="button"
+                                                data-bs-toggle="collapse"
+                                                data-bs-target="#@collapseId"
+                                                aria-expanded="@(isOpen ? "true" : "false")"
+                                                aria-controls="@collapseId">
+                                            @translation.Question
+                                        </button>
+                                    </h3>
+
+                                    <div id="@collapseId"
+                                         class="accordion-collapse collapse @(isOpen ? "show" : "")"
+                                         aria-labelledby="@headingId"
+                                         data-bs-parent="#lifeSureFaqAccordion">
+                                        <div class="accordion-body">
+                                            <p class="mb-0 lifesure-faq-answer">@translation.Answer</p>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="headingTwo">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                    Q: What is the transfer application process?
-                                </button>
-                            </h2>
-                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                                <div class="accordion-body">
-                                    A: Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="headingThree">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                    Q: Why should I attend community college?
-                                </button>
-                            </h2>
-                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                                <div class="accordion-body">
-                                    A: Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.
-                                </div>
-                            </div>
+                            }
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-6 wow fadeInRight" data-wow-delay="0.4s">
-                <img src="~/LifeSure-1.0.0/img/carousel-2.png" class="img-fluid w-100" alt="">
-            </div>
         </div>
-    </div>
-</div>
-<!-- FAQs End -->
+    }
+</section>

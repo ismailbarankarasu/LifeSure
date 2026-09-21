@@ -1,83 +1,124 @@
-﻿<!-- Team Start -->
-<div class="container-fluid team pb-5" id="ekibimiz">
-    <div class="container pb-5">
-        <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
-            <h4 class="text-primary">Our Team</h4>
-            <h1 class="display-4 mb-4">Meet Our Expert Team Members</h1>
-            <p class="mb-0">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tenetur adipisci facilis cupiditate recusandae aperiam temporibus corporis itaque quis facere, numquam, ad culpa deserunt sint dolorem autem obcaecati, ipsam mollitia hic.
-            </p>
+﻿@using System.Globalization
+@model List<LifeSure.Mediator.TeamMembers.Results.TeamMemberResult>
+
+@{
+    var isEnglish = CultureInfo.CurrentUICulture
+        .TwoLetterISOLanguageName == "en";
+
+    var language = isEnglish ? "en" : "tr";
+}
+
+<section id="ekibimiz">
+    @if (Model.Count > 0)
+    {
+        <div class="container-fluid py-5">
+            <div class="container py-5">
+                <div class="text-center mx-auto pb-5"
+                     style="max-width: 800px;">
+                    <h4 class="text-primary">
+                        @(isEnglish ? "Our Team" : "Ekibimiz")
+                    </h4>
+
+                    <h2 class="display-4 mb-4">
+                        @(isEnglish
+                            ? "Meet Our Team"
+                            : "Ekibimizle Tanışın")
+                    </h2>
+
+                    <p class="mb-0">
+                        @(isEnglish
+                            ? "Get to know the people behind LifeSure."
+                            : "LifeSure ekibinin üyelerini yakından tanıyın.")
+                    </p>
+                </div>
+
+                <div class="row g-4 justify-content-center">
+                    @foreach (var member in Model)
+                    {
+                        var translation = member.Translations
+                            .FirstOrDefault(x => x.LanguageCode == language)
+                            ?? member.Translations
+                                .FirstOrDefault(x => x.LanguageCode == "tr");
+
+                        var socialLinks = new[]
+                        {
+                            new
+                            {
+                                Url = member.FacebookUrl,
+                                Name = "Facebook",
+                                Icon = "fab fa-facebook-f"
+                            },
+                            new
+                            {
+                                Url = member.InstagramUrl,
+                                Name = "Instagram",
+                                Icon = "fab fa-instagram"
+                            },
+                            new
+                            {
+                                Url = member.LinkedInUrl,
+                                Name = "LinkedIn",
+                                Icon = "fab fa-linkedin-in"
+                            },
+                            new
+                            {
+                                Url = member.XUrl,
+                                Name = "X",
+                                Icon = ""
+                            }
+                        };
+
+                        <div class="col-sm-6 col-lg-4 col-xl-3">
+                            <article class="lifesure-team-card">
+                                <div class="lifesure-team-photo">
+                                    <img src="@member.ImageUrl"
+                                         alt="@member.FullName"
+                                         loading="lazy" />
+                                </div>
+
+                                <div class="lifesure-team-info">
+                                    <h3 class="h5 mb-2">
+                                        @member.FullName
+                                    </h3>
+
+                                    <p class="text-muted mb-0">
+                                        @translation?.JobTitle
+                                    </p>
+
+                                    @if (socialLinks.Any(x => !string.IsNullOrWhiteSpace(x.Url)))
+                                    {
+                                        <div class="lifesure-team-socials">
+                                            @foreach (var social in socialLinks)
+                                            {
+                                                if (string.IsNullOrWhiteSpace(social.Url))
+                                                {
+                                                    continue;
+                                                }
+
+                                                <a href="@social.Url"
+                                                   target="_blank"
+                                                   rel="noopener noreferrer"
+                                                   aria-label="@($"{member.FullName} - {social.Name}")">
+                                                    @if (social.Name == "X")
+                                                    {
+                                                        <span aria-hidden="true"
+                                                              class="fw-bold">X</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <i class="@social.Icon"
+                                                           aria-hidden="true"></i>
+                                                    }
+                                                </a>
+                                            }
+                                        </div>
+                                    }
+                                </div>
+                            </article>
+                        </div>
+                    }
+                </div>
+            </div>
         </div>
-        <div class="row g-4">
-            <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.2s">
-                <div class="team-item">
-                    <div class="team-img">
-                        <img src="~/LifeSure-1.0.0/img/team-1.jpg" class="img-fluid rounded-top w-100" alt="">
-                        <div class="team-icon">
-                            <a class="btn btn-primary btn-sm-square rounded-pill mb-2" href=""><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-primary btn-sm-square rounded-pill mb-2" href=""><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-primary btn-sm-square rounded-pill mb-2" href=""><i class="fab fa-linkedin-in"></i></a>
-                            <a class="btn btn-primary btn-sm-square rounded-pill mb-0" href=""><i class="fab fa-instagram"></i></a>
-                        </div>
-                    </div>
-                    <div class="team-title p-4">
-                        <h4 class="mb-0">David James</h4>
-                        <p class="mb-0">Profession</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.4s">
-                <div class="team-item">
-                    <div class="team-img">
-                        <img src="~/LifeSure-1.0.0/img/team-2.jpg" class="img-fluid rounded-top w-100" alt="">
-                        <div class="team-icon">
-                            <a class="btn btn-primary btn-sm-square rounded-pill mb-2" href=""><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-primary btn-sm-square rounded-pill mb-2" href=""><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-primary btn-sm-square rounded-pill mb-2" href=""><i class="fab fa-linkedin-in"></i></a>
-                            <a class="btn btn-primary btn-sm-square rounded-pill mb-0" href=""><i class="fab fa-instagram"></i></a>
-                        </div>
-                    </div>
-                    <div class="team-title p-4">
-                        <h4 class="mb-0">David James</h4>
-                        <p class="mb-0">Profession</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.6s">
-                <div class="team-item">
-                    <div class="team-img">
-                        <img src="~/LifeSure-1.0.0/img/team-3.jpg" class="img-fluid rounded-top w-100" alt="">
-                        <div class="team-icon">
-                            <a class="btn btn-primary btn-sm-square rounded-pill mb-2" href=""><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-primary btn-sm-square rounded-pill mb-2" href=""><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-primary btn-sm-square rounded-pill mb-2" href=""><i class="fab fa-linkedin-in"></i></a>
-                            <a class="btn btn-primary btn-sm-square rounded-pill mb-0" href=""><i class="fab fa-instagram"></i></a>
-                        </div>
-                    </div>
-                    <div class="team-title p-4">
-                        <h4 class="mb-0">David James</h4>
-                        <p class="mb-0">Profession</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.8s">
-                <div class="team-item">
-                    <div class="team-img">
-                        <img src="~/LifeSure-1.0.0/img/team-4.jpg" class="img-fluid rounded-top w-100" alt="">
-                        <div class="team-icon">
-                            <a class="btn btn-primary btn-sm-square rounded-pill mb-2" href=""><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-primary btn-sm-square rounded-pill mb-2" href=""><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-primary btn-sm-square rounded-pill mb-2" href=""><i class="fab fa-linkedin-in"></i></a>
-                            <a class="btn btn-primary btn-sm-square rounded-pill mb-0" href=""><i class="fab fa-instagram"></i></a>
-                        </div>
-                    </div>
-                    <div class="team-title p-4">
-                        <h4 class="mb-0">David James</h4>
-                        <p class="mb-0">Profession</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Team End -->
+    }
+</section>
