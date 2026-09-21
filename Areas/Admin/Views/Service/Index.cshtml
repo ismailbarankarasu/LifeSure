@@ -1,0 +1,86 @@
+﻿@model List<LifeSure.Mediator.Services.Results.ServiceResult>
+
+@{
+    ViewData["Title"] = "Hizmetler";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="h4 mb-0">Hizmetler</h2>
+
+    <a asp-action="Create" class="btn btn-primary">
+        <i class="fas fa-plus me-2"></i>
+        Yeni Hizmet
+    </a>
+</div>
+
+<div class="admin-card p-4">
+    @if (Model.Count == 0)
+    {
+        <div class="alert alert-info mb-0">
+            Henüz hizmet eklenmedi.
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table align-middle">
+                <thead>
+                    <tr>
+                        <th>Görsel</th>
+                        <th>Başlık</th>
+                        <th>İkon</th>
+                        <th>Sıra</th>
+                        <th>Durum</th>
+                        <th class="text-end">İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var service in Model)
+                    {
+                        var title = service.Translations
+                            .FirstOrDefault(x => x.LanguageCode == "tr")
+                            ?.Title;
+
+                        <tr>
+                            <td>
+                                <img src="@service.ImageUrl"
+                                     alt="@title"
+                                     class="rounded"
+                                     style="width: 90px; height: 65px; object-fit: cover;" />
+                            </td>
+                            <td>@title</td>
+                            <td>
+                                <i class="@service.IconClass text-primary"
+                                   aria-hidden="true"></i>
+                            </td>
+                            <td>@service.DisplayOrder</td>
+                            <td>
+                                <span class="badge @(service.IsActive ? "bg-success" : "bg-secondary")">
+                                    @(service.IsActive ? "Aktif" : "Pasif")
+                                </span>
+                            </td>
+                            <td class="text-end">
+                                <a asp-action="Edit"
+                                   asp-route-id="@service.Id"
+                                   class="btn btn-sm btn-outline-primary">
+                                    Düzenle
+                                </a>
+
+                                <form asp-action="Delete"
+                                      asp-route-id="@service.Id"
+                                      method="post"
+                                      class="d-inline"
+                                      onsubmit="return confirm('Bu hizmeti silmek istediğinize emin misiniz?');">
+                                    <button type="submit"
+                                            class="btn btn-sm btn-outline-danger">
+                                        Sil
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>

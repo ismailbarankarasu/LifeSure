@@ -1,20 +1,19 @@
-﻿using LifeSure.Data;
-using LifeSure.Mediator.Services.Commands;
+﻿using LifeSure.Mediator.Services.Commands;
+using LifeSure.UnitOfWork;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace LifeSure.Mediator.Services.Handlers;
 
-public class DeleteServiceCommandHandler(LifeSureDbContext context)
+public class DeleteServiceCommandHandler(IUnitOfWork unitOfWork)
     : IRequestHandler<DeleteServiceCommand, bool>
 {
     public async Task<bool> Handle(
         DeleteServiceCommand request,
         CancellationToken cancellationToken)
     {
-        var service = await context.Services
-            .SingleOrDefaultAsync(
-                x => x.Id == request.Id,
+        var service = await unitOfWork.Services
+            .GetWithTranslationsAsync(
+                request.Id,
                 cancellationToken);
 
         if (service is null)
@@ -22,9 +21,9 @@ public class DeleteServiceCommandHandler(LifeSureDbContext context)
             return false;
         }
 
-        context.Services.Remove(service);
+        unitOfWork.Services.Remove(service);
 
-        await context.SaveChangesAsync(cancellationToken);
+        await unitOfWork.SaveChangesAsync(cancellationToken);
 
         return true;
     }

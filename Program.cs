@@ -1,6 +1,8 @@
 using LifeSure.Data;
 using LifeSure.Extensions;
+using LifeSure.Repositories;
 using LifeSure.Services.Images;
+using LifeSure.UnitOfWork;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
@@ -22,6 +24,8 @@ builder.Services.AddScoped<IImageStorageService, LocalImageStorageService>();
 builder.Services.AddCqrsHandlers();
 builder.Services.AddMediatorHandlers();
 builder.Services.AddAdminIdentity();
+builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
+builder.Services.AddScoped<IUnitOfWork, EfUnitOfWork>();
 var app = builder.Build();
 
 if (app.Configuration.GetValue<bool>("SeedAdmin:Enabled"))

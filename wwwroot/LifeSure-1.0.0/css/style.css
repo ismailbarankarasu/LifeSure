@@ -887,3 +887,38 @@
 /*** copyright end ***/
 
 
+/* Hizmet kartlarında hover katmanı içeriğin arkasında kalsın. */
+#hizmetler .service-item .service-content {
+    position: relative;
+    isolation: isolate;
+}
+
+    #hizmetler .service-item .service-content::before,
+    #hizmetler .service-item .service-content::after {
+        z-index: 0;
+        pointer-events: none;
+    }
+
+    #hizmetler .service-item .service-content > * {
+        position: relative;
+        z-index: 1;
+    }
+
+/* Hover sırasında metinler okunabilir olsun. */
+#hizmetler .service-item:hover .service-content h3,
+#hizmetler .service-item:hover .service-content p {
+    color: #fff;
+}
+
+/* Buton mavi arka planda görünür kalsın. */
+#hizmetler .service-item:hover .service-content .btn {
+    background-color: #fff;
+    border-color: #fff;
+    color: var(--bs-primary);
+}
+
+#hizmetler .service-item .service-content .btn:hover {
+    background-color: #f0f4f8;
+    border-color: #f0f4f8;
+    color: var(--bs-primary);
+}

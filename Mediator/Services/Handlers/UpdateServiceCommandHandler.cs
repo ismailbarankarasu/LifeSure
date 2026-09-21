@@ -1,25 +1,25 @@
-﻿using LifeSure.Data;
-using LifeSure.Entities;
+﻿using LifeSure.Entities;
 using LifeSure.Mediator.Services.Commands;
 using LifeSure.Mediator.Services.Models;
+using LifeSure.UnitOfWork;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace LifeSure.Mediator.Services.Handlers;
 
-public class UpdateServiceCommandHandler(LifeSureDbContext context)
+public class UpdateServiceCommandHandler(IUnitOfWork unitOfWork)
     : IRequestHandler<UpdateServiceCommand, bool>
 {
-    public async Task<bool> Handle(UpdateServiceCommand request, CancellationToken cancellationToken)
+    public async Task<bool> Handle(
+        UpdateServiceCommand request,
+        CancellationToken cancellationToken)
     {
         var input = request.Input;
 
         ServiceInputValidator.Validate(input);
 
-        var service = await context.Services
-            .Include(x => x.Translations)
-            .SingleOrDefaultAsync(
-                x => x.Id == request.Id,
+        var service = await unitOfWork.Services
+            .GetWithTranslationsAsync(
+                request.Id,
                 cancellationToken);
 
         if (service is null)
@@ -32,28 +32,30 @@ public class UpdateServiceCommandHandler(LifeSureDbContext context)
         service.IsActive = input.IsActive;
         service.DisplayOrder = input.DisplayOrder;
 
-        foreach (var item in input.Translations)
+        foreach (var translationInput in input.Translations)
         {
             var translation = service.Translations
-                .SingleOrDefault(
-                    x => x.LanguageCode == item.LanguageCode);
+                .FirstOrDefault(
+                    x => x.LanguageCode == translationInput.LanguageCode);
 
             if (translation is null)
             {
                 translation = new ServiceTranslation
                 {
-                    LanguageCode = item.LanguageCode
+                    LanguageCode = translationInput.LanguageCode
                 };
 
                 service.Translations.Add(translation);
             }
 
-            translation.Title = item.Title;
-            translation.ShortDescription = item.ShortDescription;
-            translation.Description = item.Description;
+            translation.Title = translationInput.Title.Trim();
+            translation.ShortDescription =
+                translationInput.ShortDescription.Trim();
+            translation.Description =
+                translationInput.Description.Trim();
         }
 
-        await context.SaveChangesAsync(cancellationToken);
+        await unitOfWork.SaveChangesAsync(cancellationToken);
 
         return true;
     }

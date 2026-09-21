@@ -1,12 +1,12 @@
-﻿using LifeSure.Data;
-using LifeSure.Entities;
+﻿using LifeSure.Entities;
 using LifeSure.Mediator.Services.Commands;
 using LifeSure.Mediator.Services.Models;
+using LifeSure.UnitOfWork;
 using MediatR;
 
 namespace LifeSure.Mediator.Services.Handlers;
 
-public class CreateServiceCommandHandler(LifeSureDbContext context)
+public class CreateServiceCommandHandler(IUnitOfWork unitOfWork)
     : IRequestHandler<CreateServiceCommand, int>
 {
     public async Task<int> Handle(
@@ -23,21 +23,20 @@ public class CreateServiceCommandHandler(LifeSureDbContext context)
             IconClass = input.IconClass,
             IsActive = input.IsActive,
             DisplayOrder = input.DisplayOrder,
-
             Translations = input.Translations
                 .Select(x => new ServiceTranslation
                 {
                     LanguageCode = x.LanguageCode,
-                    Title = x.Title,
-                    ShortDescription = x.ShortDescription,
-                    Description = x.Description
+                    Title = x.Title.Trim(),
+                    ShortDescription = x.ShortDescription.Trim(),
+                    Description = x.Description.Trim()
                 })
                 .ToList()
         };
 
-        context.Services.Add(service);
+        unitOfWork.Services.Add(service);
 
-        await context.SaveChangesAsync(cancellationToken);
+        await unitOfWork.SaveChangesAsync(cancellationToken);
 
         return service.Id;
     }

@@ -1,12 +1,18 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using LifeSure.Mediator.Services.Queries;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
 
-namespace LifeSure.ViewComponents
+namespace LifeSure.ViewComponents;
+
+public class _ServiceComponentPartial(ISender sender)
+    : ViewComponent
 {
-    public class _ServiceComponentPartial:ViewComponent
+    public async Task<IViewComponentResult> InvokeAsync()
     {
-        public IViewComponentResult Invoke()
-        {
-            return View();
-        }
+        var services = await sender.Send(
+            new GetServicesQuery(OnlyActive: true),
+            HttpContext.RequestAborted);
+
+        return View(services);
     }
 }

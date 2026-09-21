@@ -1,114 +1,130 @@
-﻿<!-- Service Start -->
-<div class="container-fluid service py-5" id="hizmetler">
-    <div class="container py-5">
-        <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
-            <h4 class="text-primary">Our Services</h4>
-            <h1 class="display-4 mb-4">We Provide Best Services</h1>
-            <p class="mb-0">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tenetur adipisci facilis cupiditate recusandae aperiam temporibus corporis itaque quis facere, numquam, ad culpa deserunt sint dolorem autem obcaecati, ipsam mollitia hic.
-            </p>
-        </div>
-        <div class="row g-4 justify-content-center">
-            <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.2s">
-                <div class="service-item">
-                    <div class="service-img">
-                        <img src="~/LifeSure-1.0.0/img/blog-1.png" class="img-fluid rounded-top w-100" alt="">
-                        <div class="service-icon p-3">
-                            <i class="fa fa-users fa-2x"></i>
-                        </div>
-                    </div>
-                    <div class="service-content p-4">
-                        <div class="service-content-inner">
-                            <a href="#" class="d-inline-block h4 mb-4">Life Insurance</a>
-                            <p class="mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis, eum!</p>
-                            <button type="button"
-                                    class="btn btn-primary rounded-pill py-2 px-4"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#serviceModal"
-                                    data-service-title="Hayat Sigortası"
-                                    data-service-description="Hayat sigortası seçenekleri hakkında bilgi edinerek kendiniz ve sevdikleriniz için geleceğe yönelik plan yapabilirsiniz. İhtiyaçlarınıza uygun seçenekleri değerlendirmek ve kapsam hakkında bilgi almak için bizimle iletişime geçebilirsiniz.">
-                                Devamını Oku
-                            </button>
-                        </div>
-                    </div>
+﻿@using System.Globalization
+@model List<LifeSure.Mediator.Services.Results.ServiceResult>
+
+@{
+    var isEnglish = CultureInfo.CurrentUICulture
+        .TwoLetterISOLanguageName == "en";
+
+    var language = isEnglish ? "en" : "tr";
+}
+
+<section id="hizmetler">
+    @if (Model.Count > 0)
+    {
+        <div class="container-fluid service py-5">
+            <div class="container py-5">
+                <div class="text-center mx-auto pb-5"
+                     style="max-width: 800px;">
+                    <h4 class="text-primary">
+                        @(isEnglish ? "Our Services" : "Hizmetlerimiz")
+                    </h4>
+
+                    <h2 class="display-4 mb-4">
+                        @(isEnglish
+                            ? "Support for Every Stage of Life"
+                            : "Hayatın Her Alanında Yanınızdayız")
+                    </h2>
+
+                    <p class="mb-0">
+                        @(isEnglish
+                            ? "Explore our services and find options for your needs."
+                            : "Hizmetlerimizi keşfedin, ihtiyaçlarınıza uygun seçenekleri inceleyin.")
+                    </p>
                 </div>
-            </div>
-            <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.4s">
-                <div class="service-item">
-                    <div class="service-img">
-                        <img src="~/LifeSure-1.0.0/img/blog-2.png" class="img-fluid rounded-top w-100" alt="">
-                        <div class="service-icon p-3">
-                            <i class="fa fa-hospital fa-2x"></i>
+
+                <div class="row g-4">
+                    @foreach (var service in Model)
+                    {
+                        var translation = service.Translations
+                            .FirstOrDefault(x => x.LanguageCode == language)
+                            ?? service.Translations
+                                .FirstOrDefault(x => x.LanguageCode == "tr");
+
+                        if (translation is null)
+                        {
+                            continue;
+                        }
+
+                        <div class="col-md-6 col-xl-3">
+                            <div class="service-item rounded h-100 d-flex flex-column">
+                                <div class="service-img rounded-top position-relative">
+                                    <img src="@service.ImageUrl"
+                                         alt="@translation.Title"
+                                         loading="lazy"
+                                         class="img-fluid rounded-top w-100"
+                                         style="height: 220px; object-fit: cover;" />
+
+                                    <div class="service-icon p-3">
+                                        <i class="@service.IconClass fa-2x"
+                                           aria-hidden="true"></i>
+                                    </div>
+                                </div>
+
+                                <div class="service-content rounded-bottom p-4 d-flex flex-column flex-grow-1">
+                                    <h3 class="h4 mb-3">
+                                        @translation.Title
+                                    </h3>
+
+                                    <p class="mb-4">
+                                        @translation.ShortDescription
+                                    </p>
+
+                                    <button type="button"
+                                            class="btn btn-primary rounded-pill py-2 px-4 mt-auto align-self-start"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#serviceDetailsModal"
+                                            data-service-title="@translation.Title"
+                                            data-service-description="@translation.Description">
+                                        @(isEnglish ? "Read More" : "Devamını Oku")
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="service-content p-4">
-                        <div class="service-content-inner">
-                            <a href="#" class="d-inline-block h4 mb-4">Health Insurance</a>
-                            <p class="mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis, eum!</p>
-                            <button type="button"
-                                    class="btn btn-primary rounded-pill py-2 px-4"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#serviceModal"
-                                    data-service-title="Sağlık Sigortası"
-                                    data-service-description="Sağlık sigortası seçeneklerini ihtiyaçlarınıza göre değerlendirebilirsiniz. Anlaşmalı kurumlar, teminatlar ve poliçe koşulları hakkında ayrıntılı bilgi almak için ekibimizle iletişime geçebilirsiniz.">
-                                Devamını Oku
-                            </button>
-                        </div>
-                    </div>
+                    }
                 </div>
-            </div>
-            <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.6s">
-                <div class="service-item">
-                    <div class="service-img">
-                        <img src="~/LifeSure-1.0.0/img/blog-3.png" class="img-fluid rounded-top w-100" alt="">
-                        <div class="service-icon p-3">
-                            <i class="fa fa-car fa-2x"></i>
-                        </div>
-                    </div>
-                    <div class="service-content p-4">
-                        <div class="service-content-inner">
-                            <a href="#" class="d-inline-block h4 mb-4">Car Insurance</a>
-                            <p class="mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis, eum!</p>
-                            <button type="button"
-                                    class="btn btn-primary rounded-pill py-2 px-4"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#serviceModal"
-                                    data-service-title="Araç Sigortası"
-                                    data-service-description="Aracınız için trafik sigortası ve kasko seçenekleri hakkında bilgi alabilirsiniz. İhtiyaçlarınıza uygun kapsamı belirlemek ve teklif seçeneklerini değerlendirmek için bizimle iletişime geçebilirsiniz.">
-                                Devamını Oku
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.8s">
-                <div class="service-item">
-                    <div class="service-img">
-                        <img src="~/LifeSure-1.0.0/img/blog-4.png" class="img-fluid rounded-top w-100" alt="">
-                        <div class="service-icon p-3">
-                            <i class="fa fa-home fa-2x"></i>
-                        </div>
-                    </div>
-                    <div class="service-content p-4">
-                        <div class="service-content-inner">
-                            <a href="#" class="d-inline-block h4 mb-4">Home Insurance</a>
-                            <p class="mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis, eum!</p>
-                            <button type="button"
-                                    class="btn btn-primary rounded-pill py-2 px-4"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#serviceModal"
-                                    data-service-title="Konut Sigortası"
-                                    data-service-description="Eviniz ve eşyalarınız için sunulan sigorta seçeneklerini inceleyebilirsiniz. Teminatlar, kapsam ve poliçe koşulları hakkında bilgi almak için ekibimizle iletişime geçebilirsiniz.">
-                                Devamını Oku
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 text-center wow fadeInUp" data-wow-delay="0.2s">
-                <a class="btn btn-primary rounded-pill py-3 px-5" href="#">More Services</a>
             </div>
         </div>
-    </div>
-</div>
-<!-- Service End -->
+
+        <div class="modal fade"
+             id="serviceDetailsModal"
+             tabindex="-1"
+             aria-labelledby="serviceDetailsModalLabel"
+             aria-hidden="true">
+
+            <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title fs-5"
+                            id="serviceDetailsModalLabel">
+                            @(isEnglish ? "Service Details" : "Hizmet Detayı")
+                        </h2>
+
+                        <button type="button"
+                                class="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="@(isEnglish ? "Close" : "Kapat")">
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                        <p id="serviceDetailsDescription"
+                           class="mb-0"
+                           style="white-space: pre-line; overflow-wrap: anywhere;"></p>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button"
+                                class="btn btn-secondary"
+                                data-bs-dismiss="modal">
+                            @(isEnglish ? "Close" : "Kapat")
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="~/js/service-details.js"
+                asp-append-version="true"
+                defer></script>
+    }
+</section>
