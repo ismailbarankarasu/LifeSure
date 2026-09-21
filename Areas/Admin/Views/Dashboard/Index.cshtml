@@ -1,0 +1,28 @@
+﻿@{
+    Layout = "~/Views/Shared/_AuthLayout.cshtml";
+    ViewData["Title"] = "Yönetim Paneli";
+}
+
+<div class="card border-0 shadow-sm">
+    <div class="card-body p-4">
+        <h1 class="h4">Yönetim Paneli</h1>
+
+        <p class="text-muted">
+            Hoş geldiniz, @User.Identity?.Name
+        </p>
+
+        <div class="alert alert-success">
+            Yönetici girişi başarılı.
+        </div>
+
+        <form asp-area="Admin"
+              asp-controller="Account"
+              asp-action="Logout"
+              method="post">
+
+            <button type="submit" class="btn btn-outline-danger">
+                Çıkış Yap
+            </button>
+        </form>
+    </div>
+</div>

@@ -1,9 +1,11 @@
 ﻿using LifeSure.Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace LifeSure.Data;
 
-public class LifeSureDbContext : DbContext
+public class LifeSureDbContext : IdentityDbContext<IdentityUser>
 {
     public LifeSureDbContext(DbContextOptions<LifeSureDbContext> options)
         : base(options)

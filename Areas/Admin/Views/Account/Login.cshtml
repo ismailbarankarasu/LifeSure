@@ -1,0 +1,56 @@
+﻿@model LoginViewModel
+
+@{
+    Layout = "~/Views/Shared/_AuthLayout.cshtml";
+    ViewData["Title"] = "Yönetici Girişi";
+}
+
+<div class="card border-0 shadow-sm">
+    <div class="card-body p-4 p-md-5">
+        <h1 class="h3 text-primary mb-2">LifeSure</h1>
+        <p class="text-muted mb-4">Yönetici paneline giriş yapın.</p>
+
+        <form asp-area="Admin"
+              asp-controller="Account"
+              asp-action="Login"
+              method="post">
+
+            <input asp-for="ReturnUrl" type="hidden" />
+
+            <div asp-validation-summary="All"
+                 class="text-danger mb-3"
+                 role="alert">
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Email" class="form-label"></label>
+
+                <input asp-for="Email"
+                       type="email"
+                       class="form-control"
+                       autocomplete="username" />
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Password" class="form-label"></label>
+
+                <input asp-for="Password"
+                       class="form-control"
+                       autocomplete="current-password" />
+            </div>
+
+            <div class="form-check mb-4">
+                <input asp-for="RememberMe"
+                       class="form-check-input" />
+
+                <label asp-for="RememberMe"
+                       class="form-check-label">
+                </label>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">
+                Giriş Yap
+            </button>
+        </form>
+    </div>
+</div>
