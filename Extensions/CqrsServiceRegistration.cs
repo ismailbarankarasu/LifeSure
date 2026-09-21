@@ -1,4 +1,8 @@
 ﻿using LifeSure.CQRS.Abstractions;
+using LifeSure.CQRS.Features.Commands;
+using LifeSure.CQRS.Features.Handlers;
+using LifeSure.CQRS.Features.Queries;
+using LifeSure.CQRS.Features.Results;
 using LifeSure.CQRS.Sliders.Commands;
 using LifeSure.CQRS.Sliders.Handlers;
 using LifeSure.CQRS.Sliders.Queries;
@@ -31,6 +35,25 @@ public static class CqrsServiceRegistration
             ICommandHandler<DeleteSliderCommand, bool>,
             DeleteSliderCommandHandler>();
 
+        services.AddScoped<
+            IQueryHandler<GetFeaturesQuery, List<FeatureResult>>,
+            GetFeaturesQueryHandler>();
+
+        services.AddScoped<
+            IQueryHandler<GetFeatureByIdQuery, FeatureResult?>,
+            GetFeatureByIdQueryHandler>();
+
+        services.AddScoped<
+            ICommandHandler<CreateFeatureCommand, int>,
+            CreateFeatureCommandHandler>();
+
+        services.AddScoped<
+            ICommandHandler<UpdateFeatureCommand, bool>,
+            UpdateFeatureCommandHandler>();
+
+        services.AddScoped<
+            ICommandHandler<DeleteFeatureCommand, bool>,
+            DeleteFeatureCommandHandler>();
         return services;
     }
 }

@@ -1,0 +1,101 @@
+﻿@model LifeSure.Areas.Admin.Models.FeatureFormViewModel
+
+<form asp-area="Admin"
+      asp-controller="Feature"
+      asp-action="Save"
+      asp-route-id="@(Model.Id > 0 ? Model.Id : (int?)null)"
+      method="post">
+
+    <div asp-validation-summary="All"
+         class="text-danger mb-3"
+         role="alert">
+    </div>
+
+    <div class="admin-card mb-4">
+        <h2 class="h5 mb-4">Genel Bilgiler</h2>
+
+        <div class="row g-4">
+            <div class="col-12 col-lg-6">
+                <label asp-for="IconClass" class="form-label"></label>
+                <input asp-for="IconClass" class="form-control" />
+
+                <div class="form-text">
+                    Örnek: fas fa-shield-alt
+                </div>
+            </div>
+
+            <div class="col-12 col-lg-6">
+                <label asp-for="DisplayOrder" class="form-label"></label>
+
+                <input asp-for="DisplayOrder"
+                       type="number"
+                       min="0"
+                       class="form-control" />
+            </div>
+
+            <div class="col-12">
+                <div class="form-check form-switch">
+                    <input asp-for="IsActive" class="form-check-input" />
+                    <label asp-for="IsActive" class="form-check-label"></label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4 mb-4">
+        @for (var i = 0; i < Model.Translations.Count; i++)
+        {
+            var isTurkish = Model.Translations[i].LanguageCode == "tr";
+
+            <div class="col-12 col-lg-6">
+                <div class="admin-card">
+                    <h2 class="h5 mb-3">
+                        @(isTurkish ? "Türkçe İçerik" : "İngilizce İçerik")
+                    </h2>
+
+                    @if (!isTurkish)
+                    {
+                        <p class="small text-muted">
+                            İngilizce içerik isteğe bağlıdır.
+                            Alanları boşaltmak mevcut çeviriyi silmez.
+                        </p>
+                    }
+
+                    <input asp-for="Translations[i].LanguageCode"
+                           type="hidden" />
+
+                    <div class="mb-3">
+                        <label asp-for="Translations[i].Title"
+                               class="form-label">
+                            Başlık
+                        </label>
+
+                        <input asp-for="Translations[i].Title"
+                               class="form-control" />
+                    </div>
+
+                    <div>
+                        <label asp-for="Translations[i].Description"
+                               class="form-label">
+                            Açıklama
+                        </label>
+
+                        <textarea asp-for="Translations[i].Description"
+                                  class="form-control"
+                                  rows="5"></textarea>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="d-flex gap-2">
+        <button type="submit" class="btn btn-primary px-4">
+            @(Model.Id > 0 ? "Değişiklikleri Kaydet" : "Özellik Ekle")
+        </button>
+
+        <a asp-action="Index" class="btn btn-outline-secondary">
+            Vazgeç
+        </a>
+    </div>
+</form>
