@@ -1,0 +1,64 @@
+﻿@{
+    var currentController =
+        ViewContext.RouteData.Values["controller"]?.ToString();
+
+    var menuItems = new[]
+    {
+        (Title: "Genel Bakış", Controller: "Dashboard", Icon: "fas fa-home"),
+        (Title: "Slider Yönetimi", Controller: "Slider", Icon: "fas fa-images"),
+        (Title: "Özellikler", Controller: "Feature", Icon: "fas fa-star"),
+        (Title: "Hakkımızda", Controller: "About", Icon: "fas fa-building"),
+        (Title: "İstatistikler", Controller: "Statistic", Icon: "fas fa-chart-bar"),
+        (Title: "Hizmetler", Controller: "Service", Icon: "fas fa-shield-alt"),
+        (Title: "Sık Sorulan Sorular", Controller: "Faq", Icon: "fas fa-question-circle"),
+        (Title: "Ekip Üyeleri", Controller: "TeamMember", Icon: "fas fa-users"),
+        (Title: "Referanslar", Controller: "Testimonial", Icon: "fas fa-comment"),
+        (Title: "İletişim Mesajları", Controller: "ContactMessage", Icon: "fas fa-envelope"),
+        (Title: "Bildirimler", Controller: "Notification", Icon: "fas fa-bell"),
+        (Title: "Site Ayarları", Controller: "SiteSetting", Icon: "fas fa-cog")
+    };
+
+    var availableControllers = new HashSet<string>(
+        StringComparer.OrdinalIgnoreCase)
+    {
+        "Dashboard"
+    };
+}
+
+<aside id="adminSidebar" class="admin-sidebar collapse">
+    <div class="admin-sidebar-heading">YÖNETİM</div>
+
+    <nav aria-label="Yönetim menüsü">
+        @foreach (var item in menuItems)
+        {
+            var isAvailable = availableControllers.Contains(item.Controller);
+
+            var isActive = string.Equals(
+                currentController,
+                item.Controller,
+                StringComparison.OrdinalIgnoreCase);
+
+            if (isAvailable)
+            {
+                <a asp-area="Admin"
+                   asp-controller="@item.Controller"
+                   asp-action="Index"
+                   class="admin-nav-link @(isActive ? "active" : "")"
+                   aria-current="@(isActive ? "page" : null)">
+
+                    <i class="@item.Icon" aria-hidden="true"></i>
+                    <span>@item.Title</span>
+                </a>
+            }
+            else
+            {
+                <span class="admin-nav-link disabled"
+                      aria-disabled="true">
+
+                    <i class="@item.Icon" aria-hidden="true"></i>
+                    <span>@item.Title</span>
+                </span>
+            }
+        }
+    </nav>
+</aside>

@@ -1,28 +1,59 @@
 ﻿@{
-    Layout = "~/Views/Shared/_AuthLayout.cshtml";
-    ViewData["Title"] = "Yönetim Paneli";
+    ViewData["Title"] = "Genel Bakış";
 }
 
-<div class="card border-0 shadow-sm">
-    <div class="card-body p-4">
-        <h1 class="h4">Yönetim Paneli</h1>
+<div class="admin-card mb-4">
+    <h2 class="h4 mb-3">LifeSure yönetim paneline hoş geldiniz</h2>
 
-        <p class="text-muted">
-            Hoş geldiniz, @User.Identity?.Name
-        </p>
+    <p class="text-muted mb-0">
+        Web sitenizin içeriklerini, hizmetlerini ve iletişim
+        süreçlerini bu panel üzerinden yönetebilirsiniz.
+    </p>
+</div>
 
-        <div class="alert alert-success">
-            Yönetici girişi başarılı.
+<div class="row g-4">
+    <div class="col-12 col-md-6 col-xl-4">
+        <div class="admin-card">
+            <div class="admin-card-icon">
+                <i class="fas fa-edit" aria-hidden="true"></i>
+            </div>
+
+            <h2 class="h5">İçerik Yönetimi</h2>
+
+            <p class="text-muted mb-0">
+                Slider, hakkımızda ve özellikler alanlarını
+                düzenleyerek sitenizi güncel tutun.
+            </p>
         </div>
+    </div>
 
-        <form asp-area="Admin"
-              asp-controller="Account"
-              asp-action="Logout"
-              method="post">
+    <div class="col-12 col-md-6 col-xl-4">
+        <div class="admin-card">
+            <div class="admin-card-icon">
+                <i class="fas fa-shield-alt" aria-hidden="true"></i>
+            </div>
 
-            <button type="submit" class="btn btn-outline-danger">
-                Çıkış Yap
-            </button>
-        </form>
+            <h2 class="h5">Hizmetler ve Ekibiniz</h2>
+
+            <p class="text-muted mb-0">
+                Hizmet açıklamalarınızı, ekip bilgilerinizi
+                ve müşteri referanslarınızı yönetin.
+            </p>
+        </div>
+    </div>
+
+    <div class="col-12 col-md-6 col-xl-4">
+        <div class="admin-card">
+            <div class="admin-card-icon">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+            </div>
+
+            <h2 class="h5">İletişim</h2>
+
+            <p class="text-muted mb-0">
+                Ziyaretçilerden gelen mesajları ve
+                yönetim bildirimlerini takip edin.
+            </p>
+        </div>
     </div>
 </div>

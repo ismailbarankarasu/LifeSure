@@ -1,0 +1,221 @@
+﻿:root {
+    --admin-header-height: 72px;
+    --admin-sidebar-width: 250px;
+    --admin-primary: #015fc9;
+    --admin-background: #f4f7fb;
+    --admin-border: #e5eaf1;
+    --admin-text: #243247;
+    --admin-muted: #64748b;
+}
+
+body {
+    margin: 0;
+    background: var(--admin-background);
+    color: var(--admin-text);
+    font-family: "Segoe UI", sans-serif;
+}
+
+.admin-header {
+    position: fixed;
+    inset: 0 0 auto;
+    height: var(--admin-header-height);
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    background: #fff;
+    border-bottom: 1px solid var(--admin-border);
+    z-index: 1030;
+}
+
+.admin-brand {
+    color: var(--admin-primary);
+    font-size: 26px;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.admin-header-label {
+    color: var(--admin-muted);
+    font-size: 14px;
+}
+
+.admin-shell {
+    padding-top: var(--admin-header-height);
+}
+
+.admin-sidebar {
+    background: #fff;
+    border-right: 1px solid var(--admin-border);
+    padding: 24px 14px;
+}
+
+.admin-sidebar-heading {
+    padding: 0 14px 14px;
+    color: var(--admin-muted);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+}
+
+.admin-nav-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 5px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    color: var(--admin-text);
+    font-size: 14px;
+    text-decoration: none;
+}
+
+    .admin-nav-link i {
+        width: 20px;
+        text-align: center;
+    }
+
+a.admin-nav-link:hover {
+    background: #f0f5fc;
+    color: var(--admin-primary);
+}
+
+.admin-nav-link.active {
+    background: #e8f1ff;
+    color: var(--admin-primary);
+    font-weight: 700;
+}
+
+.admin-nav-link.disabled {
+    color: #758398;
+    cursor: default;
+}
+
+.admin-main {
+    min-width: 0;
+    padding: 32px;
+}
+
+.admin-page-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 28px;
+}
+
+.admin-eyebrow {
+    margin-bottom: 6px;
+    color: var(--admin-muted);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+}
+
+.admin-page-heading h1 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.admin-user {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--admin-muted);
+    font-size: 14px;
+    overflow-wrap: anywhere;
+}
+
+.admin-card {
+    height: 100%;
+    padding: 24px;
+    background: #fff;
+    border: 1px solid var(--admin-border);
+    border-radius: 16px;
+    box-shadow: 0 4px 18px rgba(27, 45, 75, 0.03);
+}
+
+.admin-card-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    margin-bottom: 18px;
+    border-radius: 12px;
+    background: #e8f1ff;
+    color: var(--admin-primary);
+    font-size: 20px;
+}
+
+.admin-footer {
+    margin-top: 36px;
+    padding-top: 20px;
+    border-top: 1px solid var(--admin-border);
+    color: var(--admin-muted);
+    font-size: 13px;
+}
+
+.admin-skip-link {
+    position: fixed;
+    top: -100px;
+    left: 12px;
+    z-index: 1100;
+    padding: 10px 16px;
+    background: #fff;
+    color: var(--admin-primary);
+}
+
+    .admin-skip-link:focus {
+        top: 12px;
+    }
+
+@media (min-width: 992px) {
+    .admin-sidebar {
+        display: block !important;
+        position: fixed;
+        top: var(--admin-header-height);
+        bottom: 0;
+        left: 0;
+        width: var(--admin-sidebar-width);
+        overflow-y: auto;
+    }
+
+    .admin-main {
+        margin-left: var(--admin-sidebar-width);
+    }
+}
+
+@media (max-width: 991.98px) {
+    .admin-sidebar {
+        border-right: 0;
+        border-bottom: 1px solid var(--admin-border);
+    }
+
+    .admin-main {
+        padding: 24px 16px;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .admin-header {
+        padding: 0 12px;
+        gap: 8px;
+    }
+
+    .admin-brand {
+        font-size: 21px;
+    }
+
+    .admin-header .btn {
+        padding: 6px 8px;
+        font-size: 12px;
+    }
+
+    .admin-page-heading h1 {
+        font-size: 24px;
+    }
+}
