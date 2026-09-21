@@ -27,21 +27,31 @@
 
 
     // Header carousel
-    $(".header-carousel").owlCarousel({
-        animateOut: 'fadeOut',
-        items: 1,
-        margin: 0,
-        stagePadding: 0,
-        autoplay: true,
-        smartSpeed: 500,
-        dots: true,
-        loop: true,
-        nav : true,
-        navText : [
-            '<i class="bi bi-arrow-left"></i>',
-            '<i class="bi bi-arrow-right"></i>'
-        ],
-    });
+    const headerCarousel = $(".header-carousel");
+
+    if (headerCarousel.length) {
+        const slideCount = headerCarousel.children(
+            ".header-carousel-item"
+        ).length;
+
+        if (slideCount > 0) {
+            headerCarousel.owlCarousel({
+                animateOut: "fadeOut",
+                items: 1,
+                margin: 0,
+                stagePadding: 0,
+                autoplay: slideCount > 1,
+                smartSpeed: 500,
+                dots: slideCount > 1,
+                loop: slideCount > 1,
+                nav: slideCount > 1,
+                navText: [
+                    '<i class="bi bi-arrow-left"></i>',
+                    '<i class="bi bi-arrow-right"></i>'
+                ]
+            });
+        }
+    }
 
 
 

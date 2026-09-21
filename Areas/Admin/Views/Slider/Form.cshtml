@@ -1,0 +1,174 @@
+﻿@model LifeSure.Areas.Admin.Models.SliderFormViewModel
+
+@{
+    var isEdit = Model.Id > 0;
+    var formAction = isEdit ? "Edit" : "Create";
+}
+
+<form asp-area="Admin"
+      asp-controller="Slider"
+      asp-action="@formAction"
+      asp-route-id="@(isEdit ? Model.Id : (int?)null)"
+      method="post"
+      enctype="multipart/form-data">
+
+    <div asp-validation-summary="All"
+         class="text-danger mb-3"
+         role="alert">
+    </div>
+
+    <div class="admin-card mb-4">
+        <h2 class="h5 mb-4">Genel Bilgiler</h2>
+
+        <div class="row g-4">
+            <div class="col-12 col-lg-6">
+                <label asp-for="ImageFile" class="form-label"></label>
+
+                <input asp-for="ImageFile"
+                       type="file"
+                       class="form-control"
+                       accept=".jpg,.jpeg,.png,.webp" />
+
+                <div class="form-text">
+                    JPG, PNG veya WebP. En fazla 5 MB.
+                    @(isEdit ? "Yeni görsel seçmezsen mevcut görsel korunur." : "")
+                </div>
+
+                <span asp-validation-for="ImageFile"
+                      class="text-danger">
+                </span>
+
+                @if (!string.IsNullOrWhiteSpace(Model.ExistingImageUrl))
+                {
+                    <img src="@Model.ExistingImageUrl"
+                         alt="Mevcut slider görseli"
+                         class="img-fluid rounded mt-3"
+                         style="max-height: 180px;" />
+                }
+            </div>
+
+            <div class="col-12 col-lg-6">
+                <label asp-for="VideoId" class="form-label"></label>
+                <input asp-for="VideoId" class="form-control" />
+
+                <div class="form-text">
+                    YouTube bağlantısındaki 11 karakterlik video kimliği.
+                    Video göstermemek için boş bırakabilirsin.
+                </div>
+
+                <span asp-validation-for="VideoId"
+                      class="text-danger">
+                </span>
+            </div>
+
+            <div class="col-12 col-lg-6">
+                <label asp-for="ButtonUrl" class="form-label"></label>
+                <input asp-for="ButtonUrl" class="form-control" />
+
+                <div class="form-text">
+                    Örnek: /#hizmetler
+                </div>
+
+                <span asp-validation-for="ButtonUrl"
+                      class="text-danger">
+                </span>
+            </div>
+
+            <div class="col-12 col-lg-6">
+                <label asp-for="DisplayOrder" class="form-label"></label>
+                <input asp-for="DisplayOrder"
+                       type="number"
+                       min="0"
+                       class="form-control" />
+
+                <span asp-validation-for="DisplayOrder"
+                      class="text-danger">
+                </span>
+            </div>
+
+            <div class="col-12">
+                <div class="form-check form-switch">
+                    <input asp-for="IsActive" class="form-check-input" />
+                    <label asp-for="IsActive" class="form-check-label"></label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4 mb-4">
+        @for (var i = 0; i < Model.Translations.Count; i++)
+        {
+            var isTurkish = Model.Translations[i].LanguageCode == "tr";
+
+            <div class="col-12 col-xl-6">
+                <div class="admin-card">
+                    <h2 class="h5 mb-3">
+                        @(isTurkish ? "Türkçe İçerik" : "İngilizce İçerik")
+                    </h2>
+
+                    @if (!isTurkish)
+                    {
+                        <p class="small text-muted">
+                            Yeni çeviri eklemeyeceksen tüm alanları boş bırak.
+                            Alanları boşaltmak mevcut çeviriyi silmez.
+                        </p>
+                    }
+
+                    <input asp-for="Translations[i].LanguageCode"
+                           type="hidden" />
+
+                    <div class="mb-3">
+                        <label asp-for="Translations[i].Subtitle"
+                               class="form-label">
+                            Üst Başlık
+                        </label>
+
+                        <input asp-for="Translations[i].Subtitle"
+                               class="form-control" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Translations[i].Title"
+                               class="form-label">
+                            Başlık
+                        </label>
+
+                        <input asp-for="Translations[i].Title"
+                               class="form-control" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Translations[i].Description"
+                               class="form-label">
+                            Açıklama
+                        </label>
+
+                        <textarea asp-for="Translations[i].Description"
+                                  class="form-control"
+                                  rows="4"></textarea>
+                    </div>
+
+                    <div>
+                        <label asp-for="Translations[i].ButtonText"
+                               class="form-label">
+                            Buton Yazısı
+                        </label>
+
+                        <input asp-for="Translations[i].ButtonText"
+                               class="form-control" />
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="d-flex gap-2">
+        <button type="submit" class="btn btn-primary px-4">
+            @(isEdit ? "Değişiklikleri Kaydet" : "Slider Ekle")
+        </button>
+
+        <a asp-action="Index" class="btn btn-outline-secondary">
+            Vazgeç
+        </a>
+    </div>
+</form>

@@ -1,12 +1,19 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using LifeSure.CQRS.Abstractions;
+using LifeSure.CQRS.Sliders.Queries;
+using LifeSure.CQRS.Sliders.Results;
+using Microsoft.AspNetCore.Mvc;
 
 namespace LifeSure.ViewComponents
 {
-    public class _SliderComponentPartial: ViewComponent
+    public class _SliderComponentPartial(
+        IQueryHandler<GetSlidersQuery, List<SliderResult>> handler) : ViewComponent
     {
-        public IViewComponentResult Invoke()
+        public async Task<IViewComponentResult> InvokeAsync()
         {
-            return View();
+            var sliders = await handler.HandleAsync(
+                new GetSlidersQuery(OnlyActive: true),
+                HttpContext.RequestAborted);
+            return View(sliders);
         }
     }
 }

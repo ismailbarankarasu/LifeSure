@@ -1,70 +1,82 @@
-﻿<!-- Carousel Start -->
-<div class="header-carousel owl-carousel" id="anasayfa">
-    <div class="header-carousel-item bg-primary">
-        <div class="carousel-caption">
-            <div class="container">
-                <div class="row g-4 align-items-center">
-                    <div class="col-lg-7 animated fadeInLeft">
-                        <div class="text-sm-center text-md-start">
-                            <h4 class="text-white text-uppercase fw-bold mb-4">Welcome To LifeSure</h4>
-                            <h1 class="display-1 text-white mb-4">Life Insurance Makes You Happy</h1>
-                            <p class="mb-5 fs-5">
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy...
-                            </p>
-                            <div class="d-flex justify-content-center justify-content-md-start flex-shrink-0 mb-4">
-                                <button type="button"
-                                        class="btn btn-light rounded-pill py-3 px-4 px-md-5 me-2"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#videoModal"
-                                        data-video-id="https://www.youtube.com/watch?v=QaH-MPZftR8">
-                                    <i class="fas fa-play-circle me-2" aria-hidden="true"></i>
-                                    Videoyu İzle
-                                </button>
-                                <a class="btn btn-dark rounded-pill py-3 px-4 px-md-5 ms-2" href="#">Learn More</a>
+﻿@model List<LifeSure.CQRS.Sliders.Results.SliderResult>
+
+@{
+    var language = System.Globalization.CultureInfo
+        .CurrentUICulture.TwoLetterISOLanguageName;
+
+    language = language == "en" ? "en" : "tr";
+}
+
+@if (Model.Count > 0)
+{
+    <div id="anasayfa" class="header-carousel owl-carousel">
+        @foreach (var slider in Model)
+        {
+            var translation = slider.Translations
+                .FirstOrDefault(x => x.LanguageCode == language)
+                ?? slider.Translations
+                    .FirstOrDefault(x => x.LanguageCode == "tr");
+
+            if (translation is null)
+            {
+                continue;
+            }
+
+            <div class="header-carousel-item bg-primary">
+                <div class="carousel-caption">
+                    <div class="container">
+                        <div class="row g-4 align-items-center">
+                            <div class="col-lg-7">
+                                <div class="text-center text-lg-start">
+                                    <h4 class="text-white text-uppercase fw-bold mb-4">
+                                        @translation.Subtitle
+                                    </h4>
+
+                                    <h2 class="display-1 text-white mb-4">
+                                        @translation.Title
+                                    </h2>
+
+                                    <p class="mb-5 fs-5">
+                                        @translation.Description
+                                    </p>
+
+                                    <div class="d-flex flex-wrap justify-content-center justify-content-lg-start gap-3">
+                                        @if (!string.IsNullOrWhiteSpace(slider.VideoId))
+                                        {
+                                            <button type="button"
+                                                    class="btn btn-light rounded-pill py-3 px-4"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#videoModal"
+                                                    data-video-id="@slider.VideoId">
+
+                                                <i class="fas fa-play-circle me-2"
+                                                   aria-hidden="true"></i>
+
+                                                Videoyu İzle
+                                            </button>
+                                        }
+
+                                        <a href="@slider.ButtonUrl"
+                                           class="btn btn-dark rounded-pill py-3 px-4">
+                                            @translation.ButtonText
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-5 animated fadeInRight">
-                        <div class="calrousel-img" style="object-fit: cover;">
-                            <img src="~/LifeSure-1.0.0/img/carousel-2.png" class="img-fluid w-100" alt="">
+
+                            <div class="col-lg-5">
+                                <img src="@slider.ImageUrl"
+                                     class="img-fluid w-100"
+                                     alt="@translation.Title" />
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        }
     </div>
-    <div class="header-carousel-item bg-primary">
-        <div class="carousel-caption">
-            <div class="container">
-                <div class="row gy-4 gy-lg-0 gx-0 gx-lg-5 align-items-center">
-                    <div class="col-lg-5 animated fadeInLeft">
-                        <div class="calrousel-img">
-                            <img src="~/LifeSure-1.0.0/img/carousel-2.png" class="img-fluid w-100" alt="">
-                        </div>
-                    </div>
-                    <div class="col-lg-7 animated fadeInRight">
-                        <div class="text-sm-center text-md-end">
-                            <h4 class="text-white text-uppercase fw-bold mb-4">Welcome To LifeSure</h4>
-                            <h1 class="display-1 text-white mb-4">Life Insurance Makes You Happy</h1>
-                            <p class="mb-5 fs-5">
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy...
-                            </p>
-                            <div class="d-flex justify-content-center justify-content-md-end flex-shrink-0 mb-4">
-                                <button type="button"
-                                        class="btn btn-light rounded-pill py-3 px-4 px-md-5 me-2"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#videoModal"
-                                        data-video-id="https://www.youtube.com/watch?v=oSybSNgtPvQ">
-                                    <i class="fas fa-play-circle me-2" aria-hidden="true"></i>
-                                    Videoyu İzle
-                                </button>
-                                <a class="btn btn-dark rounded-pill py-3 px-4 px-md-5 ms-2" href="#">Learn More</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Carousel End -->
+}
+else
+{
+    <div id="anasayfa"></div>
+}
