@@ -1,6 +1,9 @@
 using LifeSure.Data;
 using LifeSure.Extensions;
+using LifeSure.Services.Images;
+using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +18,7 @@ var connectionString =
 builder.Services.AddDbContext<LifeSureDbContext>(options =>
     options.UseSqlServer(connectionString));
 
-
+builder.Services.AddScoped<IImageStorageService, LocalImageStorageService>();
 builder.Services.AddCqrsHandlers();
 builder.Services.AddMediatorHandlers();
 builder.Services.AddAdminIdentity();
@@ -49,6 +52,35 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+var uploadDirectory = Path.Combine(
+    app.Environment.WebRootPath,
+    "uploads",
+    "images");
+
+Directory.CreateDirectory(uploadDirectory);
+
+var imageContentTypes = new FileExtensionContentTypeProvider(
+    new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+    {
+        [".jpg"] = "image/jpeg",
+        [".png"] = "image/png",
+        [".webp"] = "image/webp"
+    });
+
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(uploadDirectory),
+    RequestPath = "/uploads/images",
+    ContentTypeProvider = imageContentTypes,
+
+    OnPrepareResponse = context =>
+    {
+        context.Context.Response.Headers["X-Content-Type-Options"] =
+            "nosniff";
+    }
+});
+
 app.UseRouting();
 
 app.UseAuthentication();
