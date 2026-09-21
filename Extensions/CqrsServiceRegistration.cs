@@ -11,6 +11,10 @@ using LifeSure.CQRS.Sliders.Commands;
 using LifeSure.CQRS.Sliders.Handlers;
 using LifeSure.CQRS.Sliders.Queries;
 using LifeSure.CQRS.Sliders.Results;
+using LifeSure.CQRS.Statistics.Commands;
+using LifeSure.CQRS.Statistics.Handlers;
+using LifeSure.CQRS.Statistics.Queries;
+using LifeSure.CQRS.Statistics.Results;
 
 namespace LifeSure.Extensions;
 
@@ -74,6 +78,22 @@ public static class CqrsServiceRegistration
         services.AddScoped<
             ICommandHandler<DeleteAboutCommand, bool>,
             DeleteAboutCommandHandler>();
+
+        services.AddScoped<
+            IQueryHandler<GetStatisticsQuery, List<StatisticResult>>,
+            GetStatisticsQueryHandler>();
+
+        services.AddScoped<
+            IQueryHandler<GetStatisticByIdQuery, StatisticResult?>,
+            GetStatisticByIdQueryHandler>();
+
+        services.AddScoped<
+            ICommandHandler<SaveStatisticCommand, int?>,
+            SaveStatisticCommandHandler>();
+
+        services.AddScoped<
+            ICommandHandler<DeleteStatisticCommand, bool>,
+            DeleteStatisticCommandHandler>();
         return services;
     }
 }

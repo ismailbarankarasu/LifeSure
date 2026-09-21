@@ -1,10 +1,9 @@
-﻿@model LifeSure.CQRS.Abouts.Results.AboutResult
+﻿@using System.Globalization
+@model LifeSure.CQRS.Abouts.Results.AboutResult
 
 @{
-    var language = System.Globalization.CultureInfo
-        .CurrentUICulture.TwoLetterISOLanguageName;
-
-    language = language == "en" ? "en" : "tr";
+    var language = CultureInfo.CurrentUICulture
+        .TwoLetterISOLanguageName == "en" ? "en" : "tr";
 
     var translation = Model?.Translations
         .FirstOrDefault(x => x.LanguageCode == language)
@@ -38,6 +37,8 @@
                              class="img-fluid rounded w-100" />
                     </div>
                 </div>
+
+                @await Component.InvokeAsync("_StatisticComponentPartial")
             </div>
         </div>
     }
