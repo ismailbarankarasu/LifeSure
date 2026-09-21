@@ -1,4 +1,8 @@
-﻿using LifeSure.CQRS.Abstractions;
+﻿using LifeSure.CQRS.Abouts.Commands;
+using LifeSure.CQRS.Abouts.Handlers;
+using LifeSure.CQRS.Abouts.Queries;
+using LifeSure.CQRS.Abouts.Results;
+using LifeSure.CQRS.Abstractions;
 using LifeSure.CQRS.Features.Commands;
 using LifeSure.CQRS.Features.Handlers;
 using LifeSure.CQRS.Features.Queries;
@@ -54,6 +58,22 @@ public static class CqrsServiceRegistration
         services.AddScoped<
             ICommandHandler<DeleteFeatureCommand, bool>,
             DeleteFeatureCommandHandler>();
+
+        services.AddScoped<
+            IQueryHandler<GetAboutsQuery, List<AboutResult>>,
+            GetAboutsQueryHandler>();
+
+        services.AddScoped<
+            IQueryHandler<GetAboutByIdQuery, AboutResult?>,
+            GetAboutByIdQueryHandler>();
+
+        services.AddScoped<
+            ICommandHandler<SaveAboutCommand, int?>,
+            SaveAboutCommandHandler>();
+
+        services.AddScoped<
+            ICommandHandler<DeleteAboutCommand, bool>,
+            DeleteAboutCommandHandler>();
         return services;
     }
 }
