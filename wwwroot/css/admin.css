@@ -219,3 +219,69 @@ a.admin-nav-link:hover {
         font-size: 24px;
     }
 }
+
+/* Bildirim listesi */
+.admin-notification-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 20px;
+    border: 1px solid #e3eaf2;
+    border-radius: 14px;
+    background: #fff;
+}
+
+    .admin-notification-item.is-unread {
+        border-left: 4px solid var(--bs-primary);
+        background: #f3f7ff;
+    }
+
+.admin-notification-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: #e8f0fd;
+    color: var(--bs-primary);
+}
+
+.admin-notification-content {
+    flex: 1;
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.admin-notification-action {
+    flex-shrink: 0;
+}
+
+.admin-notification-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-width: 42px;
+    min-height: 40px;
+}
+
+@media (max-width: 575.98px) {
+    .admin-notification-item {
+        flex-wrap: wrap;
+        padding: 16px;
+    }
+
+    .admin-notification-content {
+        flex-basis: calc(100% - 60px);
+    }
+
+    .admin-notification-action {
+        width: 100%;
+    }
+
+        .admin-notification-action .btn {
+            width: 100%;
+        }
+}

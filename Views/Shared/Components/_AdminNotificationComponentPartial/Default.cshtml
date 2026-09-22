@@ -1,0 +1,24 @@
+﻿@model int
+
+@{
+    var accessibleLabel = Model > 0
+        ? $"Bildirimler, {Model} okunmamış bildirim"
+        : "Bildirimler, okunmamış bildirim yok";
+}
+
+<a asp-area="Admin"
+   asp-controller="Notification"
+   asp-action="Index"
+   class="btn btn-outline-primary admin-notification-link"
+   aria-label="@accessibleLabel"
+   title="@accessibleLabel">
+
+    <i class="far fa-bell" aria-hidden="true"></i>
+
+    @if (Model > 0)
+    {
+        <span class="badge bg-danger" aria-hidden="true">
+            @(Model > 99 ? "99+" : Model.ToString())
+        </span>
+    }
+</a>

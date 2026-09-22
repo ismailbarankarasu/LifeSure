@@ -62,6 +62,8 @@
                 Siteyi Gör
             </a>
 
+            @await Component.InvokeAsync("_AdminNotificationComponentPartial")
+
             <form asp-area="Admin"
                   asp-controller="Account"
                   asp-action="Logout"
