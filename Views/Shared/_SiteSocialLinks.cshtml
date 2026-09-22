@@ -1,0 +1,62 @@
+﻿@inject LifeSure.Services.SiteSettings.ISiteSettingsReader SettingsReader
+
+@{
+    var settings = await SettingsReader.GetAsync(
+        Context.RequestAborted);
+
+    var links = new[]
+    {
+        new
+        {
+            Url = settings?.FacebookUrl,
+            Name = "Facebook",
+            Icon = "fab fa-facebook-f"
+        },
+        new
+        {
+            Url = settings?.InstagramUrl,
+            Name = "Instagram",
+            Icon = "fab fa-instagram"
+        },
+        new
+        {
+            Url = settings?.LinkedInUrl,
+            Name = "LinkedIn",
+            Icon = "fab fa-linkedin-in"
+        },
+        new
+        {
+            Url = settings?.XUrl,
+            Name = "X",
+            Icon = ""
+        }
+    };
+}
+
+@if (links.Any(x => !string.IsNullOrWhiteSpace(x.Url)))
+{
+    <div class="lifesure-social-links">
+        @foreach (var link in links)
+        {
+            if (string.IsNullOrWhiteSpace(link.Url))
+            {
+                continue;
+            }
+
+            <a href="@link.Url"
+               target="_blank"
+               rel="noopener noreferrer"
+               aria-label="@link.Name"
+               title="@link.Name">
+                @if (link.Name == "X")
+                {
+                    <span class="fw-bold" aria-hidden="true">X</span>
+                }
+                else
+                {
+                    <i class="@link.Icon" aria-hidden="true"></i>
+                }
+            </a>
+        }
+    </div>
+}

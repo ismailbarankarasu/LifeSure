@@ -1123,3 +1123,135 @@
         padding: 24px;
     }
 }
+
+/* Ortak sosyal medya bağlantıları */
+.lifesure-social-links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+}
+
+    .lifesure-social-links a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 38px;
+        height: 38px;
+        border: 1px solid #dce8f7;
+        border-radius: 50%;
+        background: #eef5ff;
+        color: var(--bs-primary);
+        text-decoration: none;
+        transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+        .lifesure-social-links a:hover {
+            background: var(--bs-primary);
+            color: #fff;
+        }
+
+        .lifesure-social-links a:focus-visible {
+            outline: 3px solid var(--bs-primary);
+            outline-offset: 3px;
+        }
+
+/* Footer */
+.lifesure-footer {
+    background: #11263b;
+    color: #c4d0dc;
+}
+
+.lifesure-footer-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    color: #fff;
+    font-size: 1.8rem;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+    .lifesure-footer-brand:hover {
+        color: #fff;
+    }
+
+    .lifesure-footer-brand i {
+        color: #70b2ff;
+    }
+
+.lifesure-footer-description {
+    line-height: 1.85;
+    white-space: pre-line;
+    overflow-wrap: anywhere;
+}
+
+.lifesure-footer-nav li + li {
+    margin-top: 12px;
+}
+
+.lifesure-footer-nav a,
+.lifesure-footer-contact a {
+    color: #c4d0dc;
+    text-decoration: none;
+}
+
+    .lifesure-footer-nav a:hover,
+    .lifesure-footer-contact a:hover {
+        color: #fff;
+        text-decoration: underline;
+    }
+
+.lifesure-footer-contact li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 18px;
+    line-height: 1.7;
+}
+
+    .lifesure-footer-contact li > i {
+        flex-shrink: 0;
+        width: 18px;
+        margin-top: 5px;
+        color: #70b2ff;
+    }
+
+    .lifesure-footer-contact li > a,
+    .lifesure-footer-contact li > span {
+        min-width: 0;
+        overflow-wrap: anywhere;
+    }
+
+.lifesure-footer .lifesure-social-links a {
+    border-color: #36516b;
+    background: #1b3650;
+    color: #fff;
+}
+
+    .lifesure-footer .lifesure-social-links a:hover {
+        background: var(--bs-primary);
+        border-color: var(--bs-primary);
+    }
+
+.lifesure-footer a:focus-visible {
+    outline: 3px solid #70b2ff;
+    outline-offset: 4px;
+}
+
+.lifesure-footer-bottom {
+    border-top: 1px solid #2b4157;
+    background: #0d2032;
+}
+/* Üst bardaki iletişim bilgileri */
+.lifesure-topbar-contact a,
+.lifesure-topbar-contact span {
+    color: #334155 !important;
+    font-weight: 500;
+}
+
+    .lifesure-topbar-contact a:hover {
+        color: #0f172a !important;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+    }

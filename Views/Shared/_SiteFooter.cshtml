@@ -1,0 +1,183 @@
+﻿@using System.Globalization
+@inject LifeSure.Services.SiteSettings.ISiteSettingsReader SettingsReader
+
+@{
+    var settings = await SettingsReader.GetAsync(
+        Context.RequestAborted);
+
+    var isEnglish = CultureInfo.CurrentUICulture
+        .TwoLetterISOLanguageName == "en";
+
+    var language = isEnglish ? "en" : "tr";
+
+    var translation = settings?.Translations
+        .FirstOrDefault(x => x.LanguageCode == language)
+        ?? settings?.Translations
+            .FirstOrDefault(x => x.LanguageCode == "tr");
+
+    var siteName = settings?.SiteName ?? "LifeSure";
+
+    var phoneHref = string.IsNullOrWhiteSpace(settings?.PhoneNumber)
+        ? null
+        : "tel:" + new string(settings.PhoneNumber
+            .Where(c => char.IsAsciiDigit(c) || c == '+')
+            .ToArray());
+
+    var navigationLinks = new[]
+    {
+        new { Id = "anasayfa", Text = isEnglish ? "Home" : "Ana Sayfa" },
+        new { Id = "hakkimizda", Text = isEnglish ? "About Us" : "Hakkımızda" },
+        new { Id = "hizmetler", Text = isEnglish ? "Services" : "Hizmetler" },
+        new { Id = "sss", Text = isEnglish ? "FAQs" : "Sık Sorulan Sorular" },
+        new { Id = "ekibimiz", Text = isEnglish ? "Our Team" : "Ekibimiz" },
+        new { Id = "referanslar", Text = isEnglish ? "Testimonials" : "Referanslar" },
+        new { Id = "iletisim", Text = isEnglish ? "Contact" : "İletişim" }
+    };
+}
+
+<footer id="site-footer" class="lifesure-footer">
+    <div class="container py-5">
+        <div class="row g-5">
+            <div class="col-md-6 col-xl-4">
+                <a href="/#anasayfa"
+                   class="lifesure-footer-brand">
+                    <i class="fas fa-star-of-life"
+                       aria-hidden="true"></i>
+                    <span>@siteName</span>
+                </a>
+
+                @if (!string.IsNullOrWhiteSpace(translation?.FooterDescription))
+                {
+                    <p class="lifesure-footer-description mt-4 mb-4">
+                        @translation.FooterDescription
+                    </p>
+                }
+
+                <partial name="~/Views/Shared/_SiteSocialLinks.cshtml" />
+            </div>
+
+            <div class="col-md-6 col-xl-2">
+                <h2 class="h5 text-white mb-4">
+                    @(isEnglish ? "Explore" : "Keşfedin")
+                </h2>
+
+                <nav aria-label="@(isEnglish ? "Footer navigation" : "Alt menü")">
+                    <ul class="list-unstyled lifesure-footer-nav mb-0">
+                        @foreach (var link in navigationLinks)
+                        {
+                            <li>
+                                <a href="/#@link.Id">
+                                    @link.Text
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </nav>
+            </div>
+
+            <div class="col-md-6 col-xl-3">
+                <h2 class="h5 text-white mb-4">
+                    @(isEnglish ? "Contact" : "İletişim")
+                </h2>
+
+                @if (settings is not null)
+                {
+                    <ul class="list-unstyled lifesure-footer-contact mb-0">
+                        @if (!string.IsNullOrWhiteSpace(settings.Address))
+                        {
+                            <li>
+                                <i class="fas fa-map-marker-alt"
+                                   aria-hidden="true"></i>
+
+                                @if (!string.IsNullOrWhiteSpace(settings.MapUrl))
+                                {
+                                    <a href="@settings.MapUrl"
+                                       target="_blank"
+                                       rel="noopener noreferrer">
+                                        @settings.Address
+                                    </a>
+                                }
+                                else
+                                {
+                                    <span>@settings.Address</span>
+                                }
+                            </li>
+                        }
+
+                        @if (!string.IsNullOrWhiteSpace(settings.Email))
+                        {
+                            <li>
+                                <i class="fas fa-envelope"
+                                   aria-hidden="true"></i>
+
+                                <a href="@($"mailto:{settings.Email}")">
+                                    @settings.Email
+                                </a>
+                            </li>
+                        }
+
+                        @if (phoneHref is not null)
+                        {
+                            <li>
+                                <i class="fas fa-phone-alt"
+                                   aria-hidden="true"></i>
+
+                                <a href="@phoneHref">
+                                    @settings.PhoneNumber
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                }
+            </div>
+
+            <div class="col-md-6 col-xl-3">
+                <h2 class="h5 text-white mb-4">
+                    Instagram
+                </h2>
+
+                @if (!string.IsNullOrWhiteSpace(settings?.InstagramUrl))
+                {
+                    <p>
+                        @(isEnglish
+                            ? "Follow our updates on Instagram."
+                            : "Güncel paylaşımlarımızı Instagram üzerinden takip edin.")
+                    </p>
+
+                    <a href="@settings.InstagramUrl"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="btn btn-outline-light rounded-pill px-4">
+                        <i class="fab fa-instagram me-2"
+                           aria-hidden="true"></i>
+                        @(isEnglish ? "View Profile" : "Profili Gör")
+                    </a>
+                }
+                else
+                {
+                    <p class="mb-0">
+                        @(isEnglish
+                            ? "You can reach us through our contact form."
+                            : "İletişim formumuz üzerinden bize ulaşabilirsiniz.")
+                    </p>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="lifesure-footer-bottom">
+        <div class="container py-3">
+            <div class="d-flex flex-wrap justify-content-between gap-2 small">
+                <span>
+                    © @DateTime.UtcNow.Year @siteName
+                </span>
+
+                <span>
+                    @(isEnglish
+                        ? "Developed as an educational project."
+                        : "Eğitim projesi olarak geliştirilmiştir.")
+                </span>
+            </div>
+        </div>
+    </div>
+</footer>

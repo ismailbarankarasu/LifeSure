@@ -3,6 +3,7 @@ using LifeSure.Extensions;
 using LifeSure.Patterns.Observers;
 using LifeSure.Repositories;
 using LifeSure.Services.Images;
+using LifeSure.Services.SiteSettings;
 using LifeSure.UnitOfWork;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
@@ -30,6 +31,7 @@ builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
 builder.Services.AddScoped<IUnitOfWork, EfUnitOfWork>();
 builder.Services.AddScoped<IContactMessagePublisher, ContactMessagePublisher>();
 builder.Services.AddScoped<IContactMessageObserver, AdminNotificationObserver>();
+builder.Services.AddScoped<ISiteSettingsReader, SiteSettingsReader>();
 
 builder.Services.AddRateLimiter(options =>
 {

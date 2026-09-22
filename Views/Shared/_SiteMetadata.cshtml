@@ -1,0 +1,24 @@
+﻿@using System.Globalization
+@inject LifeSure.Services.SiteSettings.ISiteSettingsReader SettingsReader
+
+@{
+    var settings = await SettingsReader.GetAsync(
+        Context.RequestAborted);
+
+    var language = CultureInfo.CurrentUICulture
+        .TwoLetterISOLanguageName == "en" ? "en" : "tr";
+
+    var translation = settings?.Translations
+        .FirstOrDefault(x => x.LanguageCode == language)
+        ?? settings?.Translations
+            .FirstOrDefault(x => x.LanguageCode == "tr");
+
+    var siteName = settings?.SiteName ?? "LifeSure";
+}
+
+<title>@siteName</title>
+
+@if (!string.IsNullOrWhiteSpace(translation?.MetaDescription))
+{
+    <meta name="description" content="@translation.MetaDescription" />
+}

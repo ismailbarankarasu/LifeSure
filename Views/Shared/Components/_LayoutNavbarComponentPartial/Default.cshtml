@@ -1,13 +1,21 @@
-﻿<div class="container-fluid nav-bar px-0 px-lg-4 py-lg-0">
+﻿@inject LifeSure.Services.SiteSettings.ISiteSettingsReader SettingsReader
+
+@{
+    var siteSettings = await SettingsReader.GetAsync(
+        Context.RequestAborted);
+
+    var siteName = siteSettings?.SiteName ?? "LifeSure";
+}
+<div class="container-fluid nav-bar px-0 px-lg-4 py-lg-0">
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light"
              aria-label="Ana menü">
-
             <a href="/#anasayfa" class="navbar-brand p-0">
-                <span class="h2 text-primary mb-0">
-                    <i class="fab fa-slack me-2" aria-hidden="true"></i>
-                    LifeSure
-                </span>
+                <h1 class="text-primary mb-0">
+                    <i class="fas fa-star-of-life me-3" aria-hidden="true"></i>
+                    @siteName
+                </h1>
+            </a>
             </a>
 
             <button class="navbar-toggler"

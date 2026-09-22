@@ -1,0 +1,59 @@
+﻿@inject LifeSure.Services.SiteSettings.ISiteSettingsReader SettingsReader
+
+@{
+    var settings = await SettingsReader.GetAsync(
+        Context.RequestAborted);
+
+    var phoneHref = string.IsNullOrWhiteSpace(settings?.PhoneNumber)
+        ? null
+        : "tel:" + new string(settings.PhoneNumber
+            .Where(c => char.IsAsciiDigit(c) || c == '+')
+            .ToArray());
+}
+
+@if (settings is not null)
+{
+    <div class="lifesure-topbar-contact d-flex flex-wrap align-items-center gap-3 small">
+        @if (!string.IsNullOrWhiteSpace(settings.Address))
+        {
+            @if (!string.IsNullOrWhiteSpace(settings.MapUrl))
+            {
+                <a href="@settings.MapUrl"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="text-secondary">
+                    <i class="fas fa-map-marker-alt text-primary me-2"
+                       aria-hidden="true"></i>
+                    @settings.Address
+                </a>
+            }
+            else
+            {
+                <span class="text-secondary">
+                    <i class="fas fa-map-marker-alt text-primary me-2"
+                       aria-hidden="true"></i>
+                    @settings.Address
+                </span>
+            }
+        }
+
+        @if (!string.IsNullOrWhiteSpace(settings.Email))
+        {
+            <a href="@($"mailto:{settings.Email}")"
+               class="text-secondary">
+                <i class="fas fa-envelope text-primary me-2"
+                   aria-hidden="true"></i>
+                @settings.Email
+            </a>
+        }
+
+        @if (phoneHref is not null)
+        {
+            <a href="@phoneHref" class="text-secondary">
+                <i class="fas fa-phone-alt text-primary me-2"
+                   aria-hidden="true"></i>
+                @settings.PhoneNumber
+            </a>
+        }
+    </div>
+}
