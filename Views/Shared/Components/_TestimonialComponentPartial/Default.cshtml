@@ -1,90 +1,95 @@
-﻿<!-- Testimonial Start -->
-<div class="container-fluid testimonial pb-5" id="referanslar">
-    <div class="container pb-5">
-        <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
-            <h4 class="text-primary">Testimonial</h4>
-            <h1 class="display-4 mb-4">What Our Customers Are Saying</h1>
-            <p class="mb-0">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tenetur adipisci facilis cupiditate recusandae aperiam temporibus corporis itaque quis facere, numquam, ad culpa deserunt sint dolorem autem obcaecati, ipsam mollitia hic.
-            </p>
+﻿@using System.Globalization
+@model List<LifeSure.Mediator.Testimonials.Results.TestimonialResult>
+
+@{
+    var isEnglish = CultureInfo.CurrentUICulture
+        .TwoLetterISOLanguageName == "en";
+
+    var language = isEnglish ? "en" : "tr";
+}
+
+<section id="referanslar">
+    @if (Model.Count > 0)
+    {
+        <div class="container-fluid bg-light py-5">
+            <div class="container py-5">
+                <div class="text-center mx-auto pb-5"
+                     style="max-width: 800px;">
+                    <h4 class="text-primary">
+                        @(isEnglish ? "Testimonials" : "Referanslarımız")
+                    </h4>
+
+                    <h2 class="display-4 mb-4">
+                        @(isEnglish
+                            ? "Customer Experiences"
+                            : "Müşterilerimizin Deneyimleri")
+                    </h2>
+
+                    <p class="mb-0">
+                        @(isEnglish
+                            ? "Discover the feedback shared about our services."
+                            : "Hizmetlerimiz hakkında paylaşılan görüşleri inceleyin.")
+                    </p>
+                </div>
+
+                <div class="row g-4 justify-content-center">
+                    @foreach (var item in Model)
+                    {
+                        var translation = item.Translations
+                            .FirstOrDefault(x => x.LanguageCode == language)
+                            ?? item.Translations
+                                .FirstOrDefault(x => x.LanguageCode == "tr");
+
+                        if (translation is null)
+                        {
+                            continue;
+                        }
+
+                        var ratingLabel = isEnglish
+                            ? $"{item.Rating} out of 5 stars"
+                            : $"5 üzerinden {item.Rating} yıldız";
+
+                        <div class="col-md-6 col-xl-4">
+                            <figure class="lifesure-review-card">
+                                <div class="d-flex justify-content-between align-items-center mb-4">
+                                    <div class="lifesure-review-stars"
+                                         role="img"
+                                         aria-label="@ratingLabel">
+                                        @for (var star = 1; star <= 5; star++)
+                                        {
+                                            <i class="@(star <= item.Rating ? "fas" : "far") fa-star"
+                                               aria-hidden="true"></i>
+                                        }
+                                    </div>
+
+                                    <i class="fas fa-quote-right lifesure-review-quote"
+                                       aria-hidden="true"></i>
+                                </div>
+
+                                <blockquote class="lifesure-review-comment">
+                                    <p>@translation.Comment</p>
+                                </blockquote>
+
+                                <figcaption class="lifesure-review-person">
+                                    <img src="@item.ImageUrl"
+                                         alt=""
+                                         loading="lazy" />
+
+                                    <div>
+                                        <h3 class="h6 mb-1">
+                                            @item.FullName
+                                        </h3>
+
+                                        <span class="text-muted small">
+                                            @translation.Title
+                                        </span>
+                                    </div>
+                                </figcaption>
+                            </figure>
+                        </div>
+                    }
+                </div>
+            </div>
         </div>
-        <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.2s">
-            <div class="testimonial-item bg-light rounded">
-                <div class="row g-0">
-                    <div class="col-4  col-lg-4 col-xl-3">
-                        <div class="h-100">
-                            <img src="~/LifeSure-1.0.0/img/testimonial-1.jpg" class="img-fluid h-100 rounded" style="object-fit: cover;" alt="">
-                        </div>
-                    </div>
-                    <div class="col-8 col-lg-8 col-xl-9">
-                        <div class="d-flex flex-column my-auto text-start p-4">
-                            <h4 class="text-dark mb-0">Client Name</h4>
-                            <p class="mb-3">Profession</p>
-                            <div class="d-flex text-primary mb-3">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                            <p class="mb-0">
-                                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Enim error molestiae aut modi corrupti fugit eaque rem nulla incidunt temporibus quisquam,
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="testimonial-item bg-light rounded">
-                <div class="row g-0">
-                    <div class="col-4  col-lg-4 col-xl-3">
-                        <div class="h-100">
-                            <img src="~/LifeSure-1.0.0/img/testimonial-2.jpg" class="img-fluid h-100 rounded" style="object-fit: cover;" alt="">
-                        </div>
-                    </div>
-                    <div class="col-8 col-lg-8 col-xl-9">
-                        <div class="d-flex flex-column my-auto text-start p-4">
-                            <h4 class="text-dark mb-0">Client Name</h4>
-                            <p class="mb-3">Profession</p>
-                            <div class="d-flex text-primary mb-3">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star text-body"></i>
-                            </div>
-                            <p class="mb-0">
-                                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Enim error molestiae aut modi corrupti fugit eaque rem nulla incidunt temporibus quisquam,
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="testimonial-item bg-light rounded">
-                <div class="row g-0">
-                    <div class="col-4  col-lg-4 col-xl-3">
-                        <div class="h-100">
-                            <img src="~/LifeSure-1.0.0/img/testimonial-3.jpg" class="img-fluid h-100 rounded" style="object-fit: cover;" alt="">
-                        </div>
-                    </div>
-                    <div class="col-8 col-lg-8 col-xl-9">
-                        <div class="d-flex flex-column my-auto text-start p-4">
-                            <h4 class="text-dark mb-0">Client Name</h4>
-                            <p class="mb-3">Profession</p>
-                            <div class="d-flex text-primary mb-3">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star text-body"></i>
-                                <i class="fas fa-star text-body"></i>
-                            </div>
-                            <p class="mb-0">
-                                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Enim error molestiae aut modi corrupti fugit eaque rem nulla incidunt temporibus quisquam,
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Testimonial End -->
+    }
+</section>

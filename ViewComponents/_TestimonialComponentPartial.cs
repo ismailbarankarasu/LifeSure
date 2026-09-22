@@ -1,12 +1,18 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using LifeSure.Mediator.Testimonials.Queries;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
 
-namespace LifeSure.ViewComponents
+namespace LifeSure.ViewComponents;
+
+public class _TestimonialComponentPartial(ISender sender)
+    : ViewComponent
 {
-    public class _TestimonialComponentPartial:ViewComponent
+    public async Task<IViewComponentResult> InvokeAsync()
     {
-        public IViewComponentResult Invoke()
-        {
-            return View();
-        }
+        var testimonials = await sender.Send(
+            new GetTestimonialsQuery(OnlyActive: true),
+            HttpContext.RequestAborted);
+
+        return View(testimonials);
     }
 }

@@ -1057,3 +1057,69 @@
             transform: none;
         }
 }
+
+/* Referanslar */
+#referanslar .lifesure-review-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin: 0;
+    padding: 30px;
+    border: 1px solid #e3eaf2;
+    border-radius: 20px;
+    background: #fff;
+    box-shadow: 0 8px 28px rgba(15, 42, 70, 0.05);
+}
+
+#referanslar .lifesure-review-stars {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    color: #e7a000;
+}
+
+#referanslar .lifesure-review-quote {
+    margin-left: 16px;
+    font-size: 30px;
+    color: #dce9fb;
+}
+
+#referanslar .lifesure-review-comment {
+    flex: 1;
+    margin: 0 0 24px;
+    color: #516477;
+    line-height: 1.85;
+    overflow-wrap: anywhere;
+}
+
+    #referanslar .lifesure-review-comment p {
+        margin: 0;
+        white-space: pre-line;
+    }
+
+#referanslar .lifesure-review-person {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding-top: 22px;
+    border-top: 1px solid #edf1f6;
+}
+
+    #referanslar .lifesure-review-person img {
+        flex-shrink: 0;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    #referanslar .lifesure-review-person > div {
+        min-width: 0;
+        overflow-wrap: anywhere;
+    }
+
+@media (max-width: 575.98px) {
+    #referanslar .lifesure-review-card {
+        padding: 24px;
+    }
+}

@@ -1,0 +1,155 @@
+﻿@model LifeSure.Areas.Admin.Models.TestimonialFormViewModel
+
+<form asp-action="Save"
+      asp-route-id="@Model.Id"
+      method="post"
+      enctype="multipart/form-data">
+
+    <div asp-validation-summary="All"
+         class="text-danger mb-3"></div>
+
+    <div class="admin-card p-4 mb-4">
+        <h3 class="h5 mb-4">Genel Bilgiler</h3>
+
+        <div class="row g-4">
+            <div class="col-md-6">
+                <label asp-for="FullName" class="form-label"></label>
+                <input asp-for="FullName" class="form-control" />
+                <span asp-validation-for="FullName"
+                      class="text-danger"></span>
+            </div>
+
+            <div class="col-md-6">
+                <label asp-for="ImageFile" class="form-label"></label>
+
+                <input asp-for="ImageFile"
+                       type="file"
+                       accept=".jpg,.jpeg,.png,.webp"
+                       class="form-control" />
+
+                <span asp-validation-for="ImageFile"
+                      class="text-danger"></span>
+
+                <div class="form-text">
+                    JPG, PNG veya WebP. En fazla 5 MB.
+                    Düzenlemede boş bırakırsanız mevcut fotoğraf korunur.
+                </div>
+
+                @if (!string.IsNullOrWhiteSpace(Model.ExistingImageUrl))
+                {
+                    <img src="@Model.ExistingImageUrl"
+                         alt="Mevcut referans fotoğrafı"
+                         class="rounded-circle mt-3"
+                         style="width: 100px; height: 100px; object-fit: cover;" />
+                }
+            </div>
+
+            <div class="col-md-6">
+                <label asp-for="Rating" class="form-label"></label>
+
+                <select asp-for="Rating" class="form-select">
+                    <option value="1">1 Yıldız</option>
+                    <option value="2">2 Yıldız</option>
+                    <option value="3">3 Yıldız</option>
+                    <option value="4">4 Yıldız</option>
+                    <option value="5">5 Yıldız</option>
+                </select>
+
+                <span asp-validation-for="Rating"
+                      class="text-danger"></span>
+            </div>
+
+            <div class="col-md-6">
+                <label asp-for="DisplayOrder" class="form-label"></label>
+
+                <input asp-for="DisplayOrder"
+                       type="number"
+                       min="0"
+                       class="form-control" />
+
+                <span asp-validation-for="DisplayOrder"
+                      class="text-danger"></span>
+            </div>
+
+            <div class="col-12">
+                <div class="form-check">
+                    <input asp-for="IsActive" class="form-check-input" />
+                    <label asp-for="IsActive" class="form-check-label"></label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-lg-6">
+            <div class="admin-card p-4 h-100">
+                <h3 class="h5 mb-4">Türkçe İçerik</h3>
+
+                <div class="mb-3">
+                    <label asp-for="TurkishTitle" class="form-label"></label>
+
+                    <input asp-for="TurkishTitle"
+                           class="form-control"
+                           placeholder="Örneğin: İşletme Sahibi" />
+
+                    <span asp-validation-for="TurkishTitle"
+                          class="text-danger"></span>
+                </div>
+
+                <div>
+                    <label asp-for="TurkishComment" class="form-label"></label>
+
+                    <textarea asp-for="TurkishComment"
+                              rows="7"
+                              class="form-control"></textarea>
+
+                    <span asp-validation-for="TurkishComment"
+                          class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="admin-card p-4 h-100">
+                <h3 class="h5 mb-2">İngilizce İçerik</h3>
+
+                <p class="text-muted small">
+                    İsteğe bağlıdır. Çeviri eklemek için iki alanı da doldurun.
+                    İkisini de temizlemek mevcut İngilizce çeviriyi kaldırır.
+                </p>
+
+                <div class="mb-3">
+                    <label asp-for="EnglishTitle" class="form-label"></label>
+
+                    <input asp-for="EnglishTitle"
+                           class="form-control"
+                           placeholder="Example: Business Owner" />
+
+                    <span asp-validation-for="EnglishTitle"
+                          class="text-danger"></span>
+                </div>
+
+                <div>
+                    <label asp-for="EnglishComment" class="form-label"></label>
+
+                    <textarea asp-for="EnglishComment"
+                              rows="7"
+                              class="form-control"></textarea>
+
+                    <span asp-validation-for="EnglishComment"
+                          class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex gap-2 mt-4">
+        <button type="submit" class="btn btn-primary">
+            Kaydet
+        </button>
+
+        <a asp-action="Index" class="btn btn-outline-secondary">
+            Listeye Dön
+        </a>
+    </div>
+</form>
