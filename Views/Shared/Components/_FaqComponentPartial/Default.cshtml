@@ -18,37 +18,29 @@
                     <div class="col-lg-4">
                         <div class="lifesure-faq-intro">
                             <span class="badge bg-primary rounded-pill px-3 py-2 mb-3">
-                                @(isEnglish ? "FAQs" : "Merak Ettikleriniz")
+                                @L["Faq.Subtitle"]
                             </span>
 
                             <h2 class="display-5 mb-4">
-                                @(isEnglish
-                                    ? "Frequently Asked Questions"
-                                    : "Sık Sorulan Sorular")
+                                @L["Faq.Title"]
                             </h2>
 
                             <p class="text-muted mb-4">
-                                @(isEnglish
-                                    ? "Find answers to common questions about our services."
-                                    : "Hizmetlerimizle ilgili sık sorulan soruların yanıtlarını burada bulabilirsiniz.")
+                                @L["Faq.Description"]
                             </p>
 
                             <div class="bg-white rounded p-4 border">
                                 <h3 class="h5">
-                                    @(isEnglish
-                                        ? "Have another question?"
-                                        : "Başka bir sorunuz mu var?")
+                                    @L["Faq.MoreQuestions"]
                                 </h3>
 
                                 <p class="text-muted mb-3">
-                                    @(isEnglish
-                                        ? "Contact us for more information."
-                                        : "Daha fazla bilgi almak için bizimle iletişime geçebilirsiniz.")
+                                    @L["Faq.ContactDescription"]
                                 </p>
 
                                 <a href="#iletisim"
                                    class="btn btn-primary rounded-pill px-4">
-                                    @(isEnglish ? "Contact Us" : "Bize Ulaşın")
+                                    @L["Common.ContactUs"]
                                 </a>
                             </div>
                         </div>

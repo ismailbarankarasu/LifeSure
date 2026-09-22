@@ -1,10 +1,4 @@
-﻿@using System.Globalization
-@model LifeSure.Mediator.ContactMessages.Models.ContactMessageInput
-
-@{
-    var isEnglish = CultureInfo.CurrentUICulture
-        .TwoLetterISOLanguageName == "en";
-}
+﻿@model LifeSure.Mediator.ContactMessages.Models.ContactMessageInput
 
 <section id="iletisim">
     <div class="container-fluid bg-light py-5">
@@ -12,17 +6,15 @@
             <div class="row g-5">
                 <div class="col-lg-4">
                     <h4 class="text-primary">
-                        @(isEnglish ? "Contact" : "İletişim")
+                        @L["Nav.Contact"]
                     </h4>
 
                     <h2 class="display-5 mb-4">
-                        @(isEnglish ? "Get in Touch" : "Bize Ulaşın")
+                        @L["Contact.Title"]
                     </h2>
 
                     <p class="text-muted">
-                        @(isEnglish
-                            ? "Send us your questions or requests using the form."
-                            : "Sorularınızı veya taleplerinizi form üzerinden bize iletebilirsiniz.")
+                        @L["Contact.Description"]
                     </p>
                 </div>
 
@@ -33,18 +25,11 @@
                               asp-controller="Contact"
                               asp-action="Send"
                               method="post"
-                              data-success-message="@(isEnglish
-                                  ? "Your message has been received."
-                                  : "Mesajınız başarıyla alındı.")"
-                              data-error-message="@(isEnglish
-                                  ? "Your message could not be sent. Please try again."
-                                  : "Mesajınız gönderilemedi. Lütfen tekrar deneyiniz.")"
-                              data-limit-message="@(isEnglish
-                                  ? "Too many attempts. Please wait a minute and try again."
-                                  : "Çok fazla gönderim yaptınız. Bir dakika bekleyip tekrar deneyiniz.")"
-                              data-sending-message="@(isEnglish
-                                  ? "Sending..."
-                                  : "Gönderiliyor...")">
+                              novalidate
+                              data-success-message="@L["Contact.Success"]"
+                              data-error-message="@L["Contact.Error"]"
+                              data-limit-message="@L["Contact.RateLimit"]"
+                              data-sending-message="@L["Contact.Sending"]">
 
                             <div id="contactFormFeedback"
                                  class="mb-4"
@@ -56,7 +41,7 @@
                             <div class="row g-3">
                                 <div class="col-md-6">
                                     <label for="contactFullName" class="form-label">
-                                        @(isEnglish ? "Full name" : "Ad soyad")
+                                        @L["Contact.FullName"]
                                     </label>
 
                                     <input asp-for="FullName"
@@ -69,7 +54,7 @@
 
                                 <div class="col-md-6">
                                     <label for="contactEmail" class="form-label">
-                                        @(isEnglish ? "Email address" : "E-posta adresi")
+                                        @L["Contact.Email"]
                                     </label>
 
                                     <input asp-for="Email"
@@ -83,9 +68,7 @@
 
                                 <div class="col-md-6">
                                     <label for="contactPhone" class="form-label">
-                                        @(isEnglish
-                                            ? "Phone number (optional)"
-                                            : "Telefon numarası (isteğe bağlı)")
+                                        @L["Contact.PhoneOptional"]
                                     </label>
 
                                     <input asp-for="PhoneNumber"
@@ -98,7 +81,7 @@
 
                                 <div class="col-md-6">
                                     <label for="contactSubject" class="form-label">
-                                        @(isEnglish ? "Subject" : "Konu")
+                                        @L["Contact.Subject"]
                                     </label>
 
                                     <input asp-for="Subject"
@@ -110,7 +93,7 @@
 
                                 <div class="col-12">
                                     <label for="contactMessage" class="form-label">
-                                        @(isEnglish ? "Message" : "Mesaj")
+                                        @L["Contact.Message"]
                                     </label>
 
                                     <textarea asp-for="Message"
@@ -124,7 +107,7 @@
                                 <div class="col-12">
                                     <button type="submit"
                                             class="btn btn-primary rounded-pill px-4 py-3">
-                                        @(isEnglish ? "Send Message" : "Mesaj Gönder")
+                                        @L["Contact.Send"]
                                     </button>
                                 </div>
                             </div>

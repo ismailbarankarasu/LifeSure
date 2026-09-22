@@ -6,13 +6,15 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
 
 namespace LifeSure.Controllers;
 
 [AllowAnonymous]
 public class ContactController(
     ISender sender,
-    ILogger<ContactController> logger)
+    ILogger<ContactController> logger,
+    IStringLocalizer<LifeSure.SharedResource> localizer)
     : Controller
 {
     [HttpPost]
@@ -27,7 +29,7 @@ public class ContactController(
             var errors = ModelState.Values
                 .SelectMany(x => x.Errors)
                 .Select(x => string.IsNullOrWhiteSpace(x.ErrorMessage)
-                    ? "Alanlardan biri geçersiz."
+                    ? localizer["Validation.Invalid"].Value
                     : x.ErrorMessage)
                 .Distinct()
                 .ToArray();
@@ -35,7 +37,7 @@ public class ContactController(
             return BadRequest(new
             {
                 success = false,
-                message = "Lütfen formdaki bilgileri kontrol ediniz.",
+                message = localizer["Contact.ValidationFailed"].Value,
                 errors
             });
         }
@@ -51,12 +53,12 @@ public class ContactController(
                 success = true
             });
         }
-        catch (ValidationException exception)
+        catch (ValidationException)
         {
             return BadRequest(new
             {
                 success = false,
-                message = exception.Message
+                message = localizer["Contact.ValidationFailed"].Value
             });
         }
         catch (DbUpdateException exception)
@@ -70,7 +72,7 @@ public class ContactController(
                 new
                 {
                     success = false,
-                    message = "Mesaj kaydedilemedi. Lütfen tekrar deneyiniz."
+                    message = localizer["Contact.Error"].Value
                 });
         }
     }

@@ -27,7 +27,7 @@
     form.addEventListener("submit", async (event) => {
         event.preventDefault();
 
-        if (submitting || !form.reportValidity()) {
+        if (submitting) {
             return;
         }
 

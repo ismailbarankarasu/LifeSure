@@ -13,22 +13,17 @@
     {
         <div class="container-fluid service py-5">
             <div class="container py-5">
-                <div class="text-center mx-auto pb-5"
-                     style="max-width: 800px;">
+                <div class="text-center mx-auto pb-5" style="max-width: 800px;">
                     <h4 class="text-primary">
-                        @(isEnglish ? "Our Services" : "Hizmetlerimiz")
+                        @L["Services.Subtitle"]
                     </h4>
 
                     <h2 class="display-4 mb-4">
-                        @(isEnglish
-                            ? "Support for Every Stage of Life"
-                            : "Hayatın Her Alanında Yanınızdayız")
+                        @L["Services.Title"]
                     </h2>
 
                     <p class="mb-0">
-                        @(isEnglish
-                            ? "Explore our services and find options for your needs."
-                            : "Hizmetlerimizi keşfedin, ihtiyaçlarınıza uygun seçenekleri inceleyin.")
+                        @L["Services.Description"]
                     </p>
                 </div>
 
@@ -75,7 +70,7 @@
                                             data-bs-target="#serviceDetailsModal"
                                             data-service-title="@translation.Title"
                                             data-service-description="@translation.Description">
-                                        @(isEnglish ? "Read More" : "Devamını Oku")
+                                        @L["Services.ReadMore"]
                                     </button>
                                 </div>
                             </div>
@@ -96,13 +91,13 @@
                     <div class="modal-header">
                         <h2 class="modal-title fs-5"
                             id="serviceDetailsModalLabel">
-                            @(isEnglish ? "Service Details" : "Hizmet Detayı")
+                            @L["Services.DetailTitle"]
                         </h2>
 
                         <button type="button"
                                 class="btn-close"
                                 data-bs-dismiss="modal"
-                                aria-label="@(isEnglish ? "Close" : "Kapat")">
+                                aria-label="@L["Common.Close"]">
                         </button>
                     </div>
 
@@ -116,7 +111,7 @@
                         <button type="button"
                                 class="btn btn-secondary"
                                 data-bs-dismiss="modal">
-                            @(isEnglish ? "Close" : "Kapat")
+                            @L["Common.Close"]
                         </button>
                     </div>
                 </div>

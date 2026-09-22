@@ -132,6 +132,21 @@
   <data name="Common.WatchVideo" xml:space="preserve">
     <value>Videoyu izle</value>
   </data>
+  <data name="Faq.Descrtiption" xml:space="preserve">
+    <value>Hizmetlerimizle ilgili sık sorulan soruların yanıtlarını burada bulabilirsiniz.</value>
+  </data>
+  <data name="Faq.Description" xml:space="preserve">
+    <value>Hizmetlerimizle ilgili sık sorulan soruların yanıtlarını burada bulabilirsiniz.</value>
+  </data>
+  <data name="Faq.MoreQuestions" xml:space="preserve">
+    <value>Başka bir sorunuz mu var?</value>
+  </data>
+  <data name="Faq.Subtitle" xml:space="preserve">
+    <value>Merak Ettikleriniz</value>
+  </data>
+  <data name="Faq.Title" xml:space="preserve">
+    <value>Sıkça Sorulan Sorular</value>
+  </data>
   <data name="Features.Description" xml:space="preserve">
     <value>İhtiyaçlarınıza uygun seçenekleri keşfetmenizi kolaylaştırıyoruz.</value>
   </data>
@@ -167,5 +182,125 @@
   </data>
   <data name="Nav.Testimonials" xml:space="preserve">
     <value>Referanslar</value>
+  </data>
+  <data name="Services.Description" xml:space="preserve">
+    <value>Hizmetlerimizi keşfedin, ihtiyaçlarınıza uygun seçenekleri inceleyin.</value>
+  </data>
+  <data name="Services.DetailTitle" xml:space="preserve">
+    <value>Hizmet Detayı</value>
+  </data>
+  <data name="Services.ReadMore" xml:space="preserve">
+    <value>Devamını Oku</value>
+  </data>
+  <data name="Services.Subtitle" xml:space="preserve">
+    <value>Hizmetlerimiz</value>
+  </data>
+  <data name="Services.Title" xml:space="preserve">
+    <value>Hayatın Her Alanında Yanınızdayız</value>
+  </data>
+  <data name="Common.ContactUs" xml:space="preserve">
+    <value>Bize Ulaşın</value>
+  </data>
+  <data name="Faq.ContactDescription" xml:space="preserve">
+    <value>Daha fazla bilgi almak için bizimle iletişime geçebilirsiniz.</value>
+  </data>
+  <data name="Team.Subtitle" xml:space="preserve">
+    <value>Ekibimiz</value>
+  </data>
+  <data name="Team.Title" xml:space="preserve">
+    <value>Ekibimizle Tanışın</value>
+  </data>
+  <data name="Team.Description" xml:space="preserve">
+    <value>LifeSure ekibinin üyelerini yakından tanıyın.</value>
+  </data>
+  <data name="Testimonials.Subtitle" xml:space="preserve">
+    <value>Referanslarımız</value>
+  </data>
+  <data name="Testimonials.Title" xml:space="preserve">
+    <value>Müşterilerimizin Deneyimleri</value>
+  </data>
+  <data name="Testimonials.Description" xml:space="preserve">
+    <value>Hizmetlerimiz hakkında paylaşılan görüşleri inceleyin.</value>
+  </data>
+  <data name="Testimonials.RatingLabel" xml:space="preserve">
+    <value>5 üzerinden {0} yıldız</value>
+  </data>
+  <data name="Testimonials.DemoNote" xml:space="preserve">
+    <value>Yorumlar ve kişiler tanıtım amacıyla kurgulanmıştır.</value>
+  </data>
+  <data name="Footer.Explore" xml:space="preserve">
+    <value>Keşfedin</value>
+  </data>
+  <data name="Footer.NavigationLabel" xml:space="preserve">
+    <value>Alt menü</value>
+  </data>
+  <data name="Footer.InstagramDescription" xml:space="preserve">
+    <value>Güncel paylaşımlarımızı Instagram üzerinden takip edin.</value>
+  </data>
+  <data name="Footer.ViewProfile" xml:space="preserve">
+    <value>Profili Gör</value>
+  </data>
+  <data name="Footer.ContactFallback" xml:space="preserve">
+    <value>İletişim formumuz üzerinden bize ulaşabilirsiniz.</value>
+  </data>
+  <data name="Footer.EducationNote" xml:space="preserve">
+    <value>Eğitim projesi olarak geliştirilmiştir.</value>
+  </data>
+  <data name="Contact.Title" xml:space="preserve">
+    <value>Bize Ulaşın</value>
+  </data>
+  <data name="Contact.Description" xml:space="preserve">
+    <value>Sorularınızı veya taleplerinizi form üzerinden bize iletebilirsiniz.</value>
+  </data>
+  <data name="Contact.FullName" xml:space="preserve">
+    <value>Ad soyad</value>
+  </data>
+  <data name="Contact.Email" xml:space="preserve">
+    <value>E-posta adresi</value>
+  </data>
+  <data name="Contact.Phone" xml:space="preserve">
+    <value>Telefon numarası</value>
+  </data>
+  <data name="Contact.PhoneOptional" xml:space="preserve">
+    <value>Telefon numarası (isteğe bağlı)</value>
+  </data>
+  <data name="Contact.Subject" xml:space="preserve">
+    <value>Konu</value>
+  </data>
+  <data name="Contact.Message" xml:space="preserve">
+    <value>Mesaj</value>
+  </data>
+  <data name="Contact.Send" xml:space="preserve">
+    <value>Mesaj Gönder</value>
+  </data>
+  <data name="Contact.Sending" xml:space="preserve">
+    <value>Gönderiliyor...</value>
+  </data>
+  <data name="Contact.Success" xml:space="preserve">
+    <value>Mesajınız başarıyla alındı.</value>
+  </data>
+  <data name="Contact.Error" xml:space="preserve">
+    <value>Mesajınız gönderilemedi. Lütfen tekrar deneyiniz.</value>
+  </data>
+  <data name="Contact.RateLimit" xml:space="preserve">
+    <value>Çok fazla gönderim yaptınız. Bir dakika bekleyip tekrar deneyiniz.</value>
+  </data>
+  <data name="Contact.ValidationFailed" xml:space="preserve">
+    <value>Lütfen formdaki bilgileri kontrol ediniz.</value>
+  </data>
+  <data name="Validation.Required" xml:space="preserve">
+    <value>{0} alanı zorunludur.</value>
+  </data>
+  <data name="Validation.MaxLength" xml:space="preserve">
+    <value>{0} en fazla {1} karakter olabilir.</value>
+  </data>
+  <data name="Validation.Email" xml:space="preserve">
+    <value>Geçerli bir e-posta adresi giriniz.</value>
+  </data>
+  <data name="Validation.Phone" xml:space="preserve">
+    <value>Geçerli bir telefon numarası giriniz.</value>
+  </data>
+  <data name="Validation.Invalid" xml:space="preserve">
+    <value>Alanlardan biri geçersiz.</value>
   </data>
 </root>

@@ -16,19 +16,15 @@
                 <div class="text-center mx-auto pb-5"
                      style="max-width: 800px;">
                     <h4 class="text-primary">
-                        @(isEnglish ? "Testimonials" : "Referanslarımız")
+                        @L["Testimonials.Subtitle"]
                     </h4>
 
                     <h2 class="display-4 mb-4">
-                        @(isEnglish
-                            ? "Customer Experiences"
-                            : "Müşterilerimizin Deneyimleri")
+                        @L["Testimonials.Title"]
                     </h2>
 
                     <p class="mb-0">
-                        @(isEnglish
-                            ? "Discover the feedback shared about our services."
-                            : "Hizmetlerimiz hakkında paylaşılan görüşleri inceleyin.")
+                        @L["Testimonials.Description"]
                     </p>
                 </div>
 
@@ -45,9 +41,7 @@
                             continue;
                         }
 
-                        var ratingLabel = isEnglish
-                            ? $"{item.Rating} out of 5 stars"
-                            : $"5 üzerinden {item.Rating} yıldız";
+                        var ratingLabel = L["Testimonials.RatingLabel", item.Rating].Value;
 
                         <div class="col-md-6 col-xl-4">
                             <figure class="lifesure-review-card">
@@ -89,6 +83,10 @@
                         </div>
                     }
                 </div>
+
+                <p class="small text-muted text-center mt-4 mb-0">
+                    @L["Testimonials.DemoNote"]
+                </p>
             </div>
         </div>
     }

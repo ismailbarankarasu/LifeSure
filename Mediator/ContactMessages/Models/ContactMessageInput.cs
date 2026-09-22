@@ -4,24 +4,29 @@ namespace LifeSure.Mediator.ContactMessages.Models;
 
 public class ContactMessageInput
 {
-    [Required(ErrorMessage = "Ad soyad zorunludur.")]
-    [StringLength(150)]
+    [Display(Name = "Contact.FullName")]
+    [Required(ErrorMessage = "Validation.Required")]
+    [StringLength(150, ErrorMessage = "Validation.MaxLength")]
     public string FullName { get; set; } = string.Empty;
 
-    [Required(ErrorMessage = "E-posta adresi zorunludur.")]
-    [EmailAddress(ErrorMessage = "Geçerli bir e-posta adresi giriniz.")]
-    [StringLength(254)]
+    [Display(Name = "Contact.Email")]
+    [Required(ErrorMessage = "Validation.Required")]
+    [EmailAddress(ErrorMessage = "Validation.Email")]
+    [StringLength(254, ErrorMessage = "Validation.MaxLength")]
     public string Email { get; set; } = string.Empty;
 
-    [StringLength(30)]
-    [Phone(ErrorMessage = "Geçerli bir telefon numarası giriniz.")]
+    [Display(Name = "Contact.Phone")]
+    [StringLength(30, ErrorMessage = "Validation.MaxLength")]
+    [Phone(ErrorMessage = "Validation.Phone")]
     public string? PhoneNumber { get; set; }
 
-    [Required(ErrorMessage = "Konu zorunludur.")]
-    [StringLength(200)]
+    [Display(Name = "Contact.Subject")]
+    [Required(ErrorMessage = "Validation.Required")]
+    [StringLength(200, ErrorMessage = "Validation.MaxLength")]
     public string Subject { get; set; } = string.Empty;
 
-    [Required(ErrorMessage = "Mesaj zorunludur.")]
-    [StringLength(6000)]
+    [Display(Name = "Contact.Message")]
+    [Required(ErrorMessage = "Validation.Required")]
+    [StringLength(6000, ErrorMessage = "Validation.MaxLength")]
     public string Message { get; set; } = string.Empty;
 }
