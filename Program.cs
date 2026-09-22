@@ -49,6 +49,7 @@ builder.Services.AddRateLimiter(options =>
                 AutoReplenishment = true
             }));
 });
+builder.Services.AddSiteLocalization();
 var app = builder.Build();
 
 if (app.Configuration.GetValue<bool>("SeedAdmin:Enabled"))
@@ -109,7 +110,7 @@ app.UseStaticFiles(new StaticFileOptions
 });
 
 app.UseRouting();
-
+app.UseRequestLocalization();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseRateLimiter();
