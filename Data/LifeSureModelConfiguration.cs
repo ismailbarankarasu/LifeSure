@@ -10,6 +10,9 @@ public static class LifeSureModelConfiguration
         ConfigureTranslations(modelBuilder);
         ConfigureFields(modelBuilder);
         ConfigureNotifications(modelBuilder);
+        modelBuilder.Entity<SiteSetting>()
+            .HasIndex(x => x.SingletonKey)
+            .IsUnique();
     }
 
     private static void ConfigureTranslations(ModelBuilder modelBuilder)

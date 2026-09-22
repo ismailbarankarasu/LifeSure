@@ -1,0 +1,183 @@
+﻿@model LifeSure.Areas.Admin.Models.SiteSettingFormViewModel
+
+@{
+    ViewData["Title"] = "Site Ayarları";
+}
+
+<form asp-action="Save" method="post">
+    <div asp-validation-summary="All"
+         class="text-danger mb-3"></div>
+
+    <div class="admin-card p-4 mb-4">
+        <h2 class="h5 mb-4">Genel ve İletişim Bilgileri</h2>
+
+        <div class="row g-4">
+            <div class="col-md-6">
+                <label asp-for="SiteName" class="form-label"></label>
+                <input asp-for="SiteName" class="form-control" />
+                <span asp-validation-for="SiteName"
+                      class="text-danger"></span>
+            </div>
+
+            <div class="col-md-6">
+                <label asp-for="Email" class="form-label"></label>
+                <input asp-for="Email"
+                       type="email"
+                       class="form-control" />
+                <span asp-validation-for="Email"
+                      class="text-danger"></span>
+            </div>
+
+            <div class="col-md-6">
+                <label asp-for="PhoneNumber" class="form-label"></label>
+                <input asp-for="PhoneNumber"
+                       type="tel"
+                       class="form-control" />
+                <span asp-validation-for="PhoneNumber"
+                      class="text-danger"></span>
+            </div>
+
+            <div class="col-md-6">
+                <label asp-for="MapUrl" class="form-label"></label>
+                <input asp-for="MapUrl" class="form-control" />
+                <span asp-validation-for="MapUrl"
+                      class="text-danger"></span>
+
+                <div class="form-text">
+                    Haritanın HTTPS paylaşım bağlantısını giriniz.
+                    Bu alan isteğe bağlıdır.
+                </div>
+            </div>
+
+            <div class="col-12">
+                <label asp-for="Address" class="form-label"></label>
+                <textarea asp-for="Address"
+                          rows="3"
+                          class="form-control"></textarea>
+                <span asp-validation-for="Address"
+                      class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="admin-card p-4 mb-4">
+        <h2 class="h5 mb-2">Sosyal Medya</h2>
+
+        <p class="text-muted small mb-4">
+            Kullanmadığınız hesapları boş bırakabilirsiniz.
+            Bağlantılar https:// ile başlamalıdır.
+        </p>
+
+        <div class="row g-4">
+            <div class="col-md-6">
+                <label asp-for="FacebookUrl" class="form-label"></label>
+                <input asp-for="FacebookUrl" class="form-control" />
+                <span asp-validation-for="FacebookUrl"
+                      class="text-danger"></span>
+            </div>
+
+            <div class="col-md-6">
+                <label asp-for="InstagramUrl" class="form-label"></label>
+                <input asp-for="InstagramUrl" class="form-control" />
+                <span asp-validation-for="InstagramUrl"
+                      class="text-danger"></span>
+            </div>
+
+            <div class="col-md-6">
+                <label asp-for="LinkedInUrl" class="form-label"></label>
+                <input asp-for="LinkedInUrl" class="form-control" />
+                <span asp-validation-for="LinkedInUrl"
+                      class="text-danger"></span>
+            </div>
+
+            <div class="col-md-6">
+                <label asp-for="XUrl" class="form-label"></label>
+                <input asp-for="XUrl" class="form-control" />
+                <span asp-validation-for="XUrl"
+                      class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-lg-6">
+            <div class="admin-card p-4 h-100">
+                <h2 class="h5 mb-4">Türkçe Açıklamalar</h2>
+
+                <div class="mb-4">
+                    <label asp-for="TurkishFooterDescription"
+                           class="form-label"></label>
+
+                    <textarea asp-for="TurkishFooterDescription"
+                              rows="5"
+                              class="form-control"></textarea>
+
+                    <span asp-validation-for="TurkishFooterDescription"
+                          class="text-danger"></span>
+
+                    <div class="form-text">
+                        Sayfanın alt bölümündeki kısa tanıtım metni.
+                    </div>
+                </div>
+
+                <div>
+                    <label asp-for="TurkishMetaDescription"
+                           class="form-label"></label>
+
+                    <textarea asp-for="TurkishMetaDescription"
+                              rows="3"
+                              class="form-control"></textarea>
+
+                    <span asp-validation-for="TurkishMetaDescription"
+                          class="text-danger"></span>
+
+                    <div class="form-text">
+                        Sayfanın HTML meta açıklamasında kullanılacak metin.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="admin-card p-4 h-100">
+                <h2 class="h5 mb-2">İngilizce Açıklamalar</h2>
+
+                <p class="text-muted small">
+                    İsteğe bağlıdır. Çeviri eklemek için iki alanı da doldurun.
+                    İkisini de temizlemek mevcut İngilizce çeviriyi kaldırır.
+                </p>
+
+                <div class="mb-4">
+                    <label asp-for="EnglishFooterDescription"
+                           class="form-label"></label>
+
+                    <textarea asp-for="EnglishFooterDescription"
+                              rows="5"
+                              class="form-control"></textarea>
+
+                    <span asp-validation-for="EnglishFooterDescription"
+                          class="text-danger"></span>
+                </div>
+
+                <div>
+                    <label asp-for="EnglishMetaDescription"
+                           class="form-label"></label>
+
+                    <textarea asp-for="EnglishMetaDescription"
+                              rows="3"
+                              class="form-control"></textarea>
+
+                    <span asp-validation-for="EnglishMetaDescription"
+                          class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <button type="submit" class="btn btn-primary px-4">
+            <i class="fas fa-save me-2" aria-hidden="true"></i>
+            Ayarları Kaydet
+        </button>
+    </div>
+</form>

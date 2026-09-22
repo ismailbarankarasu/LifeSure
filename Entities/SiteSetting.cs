@@ -21,7 +21,7 @@ public class SiteSetting : BaseEntity
     public string? LinkedInUrl { get; set; }
 
     public string? XUrl { get; set; }
-
+    public int SingletonKey { get; set; } = 1;
     public ICollection<SiteSettingTranslation> Translations { get; set; } = new List<SiteSettingTranslation>();
 }
 
