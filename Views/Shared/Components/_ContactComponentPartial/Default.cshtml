@@ -1,0 +1,141 @@
+﻿@using System.Globalization
+@model LifeSure.Mediator.ContactMessages.Models.ContactMessageInput
+
+@{
+    var isEnglish = CultureInfo.CurrentUICulture
+        .TwoLetterISOLanguageName == "en";
+}
+
+<section id="iletisim">
+    <div class="container-fluid bg-light py-5">
+        <div class="container py-5">
+            <div class="row g-5">
+                <div class="col-lg-4">
+                    <h4 class="text-primary">
+                        @(isEnglish ? "Contact" : "İletişim")
+                    </h4>
+
+                    <h2 class="display-5 mb-4">
+                        @(isEnglish ? "Get in Touch" : "Bize Ulaşın")
+                    </h2>
+
+                    <p class="text-muted">
+                        @(isEnglish
+                            ? "Send us your questions or requests using the form."
+                            : "Sorularınızı veya taleplerinizi form üzerinden bize iletebilirsiniz.")
+                    </p>
+                </div>
+
+                <div class="col-lg-8">
+                    <div class="bg-white rounded p-4 p-lg-5 shadow-sm">
+                        <form id="contactForm"
+                              asp-area=""
+                              asp-controller="Contact"
+                              asp-action="Send"
+                              method="post"
+                              data-success-message="@(isEnglish
+                                  ? "Your message has been received."
+                                  : "Mesajınız başarıyla alındı.")"
+                              data-error-message="@(isEnglish
+                                  ? "Your message could not be sent. Please try again."
+                                  : "Mesajınız gönderilemedi. Lütfen tekrar deneyiniz.")"
+                              data-limit-message="@(isEnglish
+                                  ? "Too many attempts. Please wait a minute and try again."
+                                  : "Çok fazla gönderim yaptınız. Bir dakika bekleyip tekrar deneyiniz.")"
+                              data-sending-message="@(isEnglish
+                                  ? "Sending..."
+                                  : "Gönderiliyor...")">
+
+                            <div id="contactFormFeedback"
+                                 class="mb-4"
+                                 role="status"
+                                 aria-live="polite"
+                                 tabindex="-1"
+                                 hidden></div>
+
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="contactFullName" class="form-label">
+                                        @(isEnglish ? "Full name" : "Ad soyad")
+                                    </label>
+
+                                    <input asp-for="FullName"
+                                           id="contactFullName"
+                                           autocomplete="name"
+                                           maxlength="150"
+                                           required
+                                           class="form-control" />
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="contactEmail" class="form-label">
+                                        @(isEnglish ? "Email address" : "E-posta adresi")
+                                    </label>
+
+                                    <input asp-for="Email"
+                                           id="contactEmail"
+                                           type="email"
+                                           autocomplete="email"
+                                           maxlength="254"
+                                           required
+                                           class="form-control" />
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="contactPhone" class="form-label">
+                                        @(isEnglish
+                                            ? "Phone number (optional)"
+                                            : "Telefon numarası (isteğe bağlı)")
+                                    </label>
+
+                                    <input asp-for="PhoneNumber"
+                                           id="contactPhone"
+                                           type="tel"
+                                           autocomplete="tel"
+                                           maxlength="30"
+                                           class="form-control" />
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="contactSubject" class="form-label">
+                                        @(isEnglish ? "Subject" : "Konu")
+                                    </label>
+
+                                    <input asp-for="Subject"
+                                           id="contactSubject"
+                                           maxlength="200"
+                                           required
+                                           class="form-control" />
+                                </div>
+
+                                <div class="col-12">
+                                    <label for="contactMessage" class="form-label">
+                                        @(isEnglish ? "Message" : "Mesaj")
+                                    </label>
+
+                                    <textarea asp-for="Message"
+                                              id="contactMessage"
+                                              rows="6"
+                                              maxlength="6000"
+                                              required
+                                              class="form-control"></textarea>
+                                </div>
+
+                                <div class="col-12">
+                                    <button type="submit"
+                                            class="btn btn-primary rounded-pill px-4 py-3">
+                                        @(isEnglish ? "Send Message" : "Mesaj Gönder")
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="~/js/contact-form.js"
+        asp-append-version="true"
+        defer></script>

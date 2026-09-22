@@ -1,11 +1,13 @@
 using LifeSure.Data;
 using LifeSure.Extensions;
+using LifeSure.Patterns.Observers;
 using LifeSure.Repositories;
 using LifeSure.Services.Images;
 using LifeSure.UnitOfWork;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
+using System.Threading.RateLimiting;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,6 +28,25 @@ builder.Services.AddMediatorHandlers();
 builder.Services.AddAdminIdentity();
 builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
 builder.Services.AddScoped<IUnitOfWork, EfUnitOfWork>();
+builder.Services.AddScoped<IContactMessagePublisher, ContactMessagePublisher>();
+builder.Services.AddScoped<IContactMessageObserver, AdminNotificationObserver>();
+
+builder.Services.AddRateLimiter(options =>
+{
+    options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+
+    options.AddPolicy<string>("contact-form", httpContext =>
+        RateLimitPartition.GetFixedWindowLimiter(
+            partitionKey: httpContext.Connection.RemoteIpAddress?
+                .ToString() ?? "unknown",
+            factory: _ => new FixedWindowRateLimiterOptions
+            {
+                PermitLimit = 3,
+                Window = TimeSpan.FromMinutes(1),
+                QueueLimit = 0,
+                AutoReplenishment = true
+            }));
+});
 var app = builder.Build();
 
 if (app.Configuration.GetValue<bool>("SeedAdmin:Enabled"))
@@ -89,6 +110,7 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseRateLimiter();
 
 app.MapStaticAssets();
 

@@ -1,0 +1,84 @@
+﻿@model LifeSure.Mediator.ContactMessages.Results.ContactMessageDetailResult
+
+@{
+    ViewData["Title"] = "Mesaj Detayı";
+}
+
+<div class="row g-4">
+    <div class="col-lg-8">
+        <div class="admin-card p-4">
+            <h2 class="h4 mb-4" style="overflow-wrap: anywhere;">
+                @Model.Subject
+            </h2>
+
+            <dl class="row">
+                <dt class="col-sm-3">Gönderen</dt>
+                <dd class="col-sm-9">@Model.FullName</dd>
+
+                <dt class="col-sm-3">E-posta</dt>
+                <dd class="col-sm-9" style="overflow-wrap: anywhere;">
+                    @Model.Email
+                </dd>
+
+                <dt class="col-sm-3">Telefon</dt>
+                <dd class="col-sm-9">
+                    @(string.IsNullOrWhiteSpace(Model.PhoneNumber)
+                        ? "Belirtilmedi"
+                        : Model.PhoneNumber)
+                </dd>
+
+                <dt class="col-sm-3">Tarih (UTC)</dt>
+                <dd class="col-sm-9">
+                    @(Model.CreatedAt.ToString("dd.MM.yyyy HH:mm"))
+                </dd>
+            </dl>
+
+            <hr />
+
+            <p class="mb-0"
+               style="white-space: pre-line; overflow-wrap: anywhere;">@Model.Message</p>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="admin-card p-4">
+            <h3 class="h5 mb-3">Mesaj Durumu</h3>
+
+            <form asp-action="UpdateStatus"
+                  asp-route-id="@Model.Id"
+                  method="post">
+
+                <label for="messageStatus" class="form-label">
+                    Durum
+                </label>
+
+                <select id="messageStatus"
+                        name="status"
+                        class="form-select mb-3">
+                    <option value="0" selected="@((int)Model.Status == 0)">
+                        Yeni
+                    </option>
+                    <option value="1" selected="@((int)Model.Status == 1)">
+                        Okundu
+                    </option>
+                    <option value="2" selected="@((int)Model.Status == 2)">
+                        Yanıtlandı
+                    </option>
+                </select>
+
+                <button type="submit" class="btn btn-primary w-100">
+                    Durumu Güncelle
+                </button>
+            </form>
+
+            <p class="text-muted small mt-3 mb-0">
+                Durumu değiştirmek otomatik e-posta göndermez.
+            </p>
+        </div>
+
+        <a asp-action="Index"
+           class="btn btn-outline-secondary mt-3">
+            Listeye Dön
+        </a>
+    </div>
+</div>
