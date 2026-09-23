@@ -1,0 +1,48 @@
+﻿@model IReadOnlyList<LifeSure.Models.Instagram.InstagramPost>
+
+<h2 class="h5 text-white mb-3">Instagram</h2>
+
+<p class="small mb-3">
+    @L["Instagram.Source"]
+</p>
+
+@if (Model.Count > 0)
+{
+    <div class="lifesure-instagram-grid">
+        @foreach (var post in Model)
+        {
+            <a class="lifesure-instagram-item"
+               href="@post.Url"
+               target="_blank"
+               rel="noopener noreferrer"
+               aria-label="@L["Instagram.OpenPost"]">
+
+                <img src="@Url.Action("Image", "Instagram", new { area = "", id = post.Id })"
+                     alt="@L["Instagram.ImageAlt"]"
+                     loading="lazy"
+                     decoding="async"
+                     width="160"
+                     height="160" />
+
+                <span class="lifesure-instagram-overlay"
+                      aria-hidden="true">
+                    <i class="fab fa-instagram"></i>
+                </span>
+            </a>
+        }
+    </div>
+}
+else
+{
+    <p class="small">
+        @L["Instagram.Unavailable"]
+    </p>
+}
+
+<a href="https://www.instagram.com/anadolu.sigorta/"
+   target="_blank"
+   rel="noopener noreferrer"
+   class="btn btn-outline-light btn-sm rounded-pill mt-3">
+    <i class="fab fa-instagram me-2" aria-hidden="true"></i>
+    @L["Footer.ViewProfile"]
+</a>

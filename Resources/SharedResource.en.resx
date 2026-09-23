@@ -303,4 +303,16 @@
   <data name="Validation.Invalid" xml:space="preserve">
     <value>One of the fields is invalid.</value>
   </data>
+  <data name="Instagram.Source" xml:space="preserve">
+    <value>Posts from Anadolu Sigorta</value>
+  </data>
+  <data name="Instagram.OpenPost" xml:space="preserve">
+    <value>Open post on Instagram</value>
+  </data>
+  <data name="Instagram.ImageAlt" xml:space="preserve">
+    <value>Anadolu Sigorta Instagram post</value>
+  </data>
+  <data name="Instagram.Unavailable" xml:space="preserve">
+    <value>Posts are currently unavailable. You can visit the Instagram profile.</value>
+  </data>
 </root>

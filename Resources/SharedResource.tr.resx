@@ -303,4 +303,16 @@
   <data name="Validation.Invalid" xml:space="preserve">
     <value>Alanlardan biri geçersiz.</value>
   </data>
+  <data name="Instagram.Source" xml:space="preserve">
+    <value>Anadolu Sigorta’dan paylaşımlar</value>
+  </data>
+  <data name="Instagram.OpenPost" xml:space="preserve">
+    <value>Gönderiyi Instagram’da aç</value>
+  </data>
+  <data name="Instagram.ImageAlt" xml:space="preserve">
+    <value>Anadolu Sigorta Instagram paylaşımı</value>
+  </data>
+  <data name="Instagram.Unavailable" xml:space="preserve">
+    <value>Paylaşımlar şu anda görüntülenemiyor. Instagram profilini ziyaret edebilirsiniz.</value>
+  </data>
 </root>

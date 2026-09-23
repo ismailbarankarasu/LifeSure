@@ -1255,3 +1255,61 @@
         text-decoration: underline;
         text-underline-offset: 3px;
     }
+
+.lifesure-instagram-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.lifesure-instagram-item {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    aspect-ratio: 1;
+    border-radius: 12px;
+    background: #203b55;
+}
+
+    .lifesure-instagram-item img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform .25s ease;
+    }
+
+.lifesure-instagram-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, .4);
+    color: #fff;
+    font-size: 24px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .25s ease;
+}
+
+.lifesure-instagram-item:hover img {
+    transform: scale(1.06);
+}
+
+.lifesure-instagram-item:hover .lifesure-instagram-overlay,
+.lifesure-instagram-item:focus-visible .lifesure-instagram-overlay {
+    opacity: 1;
+}
+
+.lifesure-instagram-item:focus-visible {
+    outline: 3px solid #fff;
+    outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .lifesure-instagram-item img,
+    .lifesure-instagram-overlay {
+        transition: none;
+    }
+}

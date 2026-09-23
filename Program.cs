@@ -3,6 +3,7 @@ using LifeSure.Extensions;
 using LifeSure.Patterns.Observers;
 using LifeSure.Repositories;
 using LifeSure.Services.Images;
+using LifeSure.Services.Instagram;
 using LifeSure.Services.SiteSettings;
 using LifeSure.UnitOfWork;
 using Microsoft.AspNetCore.StaticFiles;
@@ -56,6 +57,27 @@ builder.Services.AddRateLimiter(options =>
             }));
 });
 builder.Services.AddSiteLocalization();
+
+builder.Services.AddMemoryCache();
+
+builder.Services.AddHttpClient("ApifyInstagram", client =>
+{
+    client.BaseAddress = new Uri("https://api.apify.com/v2/");
+    client.Timeout = TimeSpan.FromSeconds(8);
+});
+
+builder.Services.AddSingleton<IInstagramService, ApifyInstagramService>();
+builder.Services
+    .AddHttpClient("InstagramImages", client =>
+    {
+        client.Timeout = TimeSpan.FromSeconds(10);
+        client.MaxResponseContentBufferSize = 5 * 1024 * 1024;
+    })
+    .ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
+    {
+        AllowAutoRedirect = false,
+        UseCookies = false
+    });
 var app = builder.Build();
 
 if (app.Configuration.GetValue<bool>("SeedAdmin:Enabled"))
