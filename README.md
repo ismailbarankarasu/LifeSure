@@ -380,8 +380,7 @@ dotnet build
 - [LinkedIn](https://www.linkedin.com/in/ismail-baran-karasu/)
 - [Proje deposu](https://github.com/ismailbarankarasu/LifeSure)
 
-**Mentör:** Murat Yücedağ — M&Y Yazılım Eğitim Akademi Danışmanlık.
 
 Arayüzün başlangıç noktası HTML Codex tarafından hazırlanan, ThemeWagon üzerinden dağıtılan LifeSure template'idir. Template ve üçüncü taraf varlıkların kullanım koşulları kendi lisanslarına tabidir; [template lisans dosyasını](wwwroot/LifeSure-1.0.0/LICENSE.txt) inceleyin.
 
-Instagram alanındaki gönderiler Anadolu Sigorta'nın herkese açık hesabından alınır. LifeSure bir eğitim projesidir; Anadolu Sigorta ile resmî bir bağlantı veya iş ortaklığı iddiası taşımaz.
+Instagram alanındaki gönderiler Anadolu Sigorta'nın herkese açık hesabından alınır.
